@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ski_Service_Applikation.ViewModels;
 
 namespace Ski_Service_Applikation.Controllers
 {
@@ -10,23 +11,28 @@ namespace Ski_Service_Applikation.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Message = "Your application description page.";
 
-            using (var context = new ski_serviceEntities())
-            {
-                var List<Angebot>Angebote = context.alle_angebote_view.ToList();
-
-                Angebote
-                
-
-            }
             return View();
         }
 
         public ActionResult About()
         { 
-            ViewBag.Message = "Your application description page.";
+         
+            using (var context = new ski_serviceEntities())
+            {
+                List<angebot> Angebote = context.angebot.ToList();
 
-            return View();
+                var first = Angebote.First();
+
+                var ViewModel = new firstAngebotViewModel()
+                {
+                    first_angebot = first
+                };
+
+                return View(ViewModel);
+
+            }
 
         }
 

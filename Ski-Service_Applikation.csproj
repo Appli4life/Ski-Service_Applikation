@@ -234,6 +234,7 @@
     <Compile Include="status.cs">
       <DependentUpon>Skie_Service_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\firstAngebotViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -293,7 +294,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

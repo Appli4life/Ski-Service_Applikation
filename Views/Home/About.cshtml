@@ -1,7 +1,16 @@
-﻿@{
+﻿@model Ski_Service_Applikation.ViewModels.firstAngebotViewModel
+
+@{
     ViewBag.Title = "About";
+   
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+
+<p>@Model.first_angebot.Preis_pro_Tag</p>
+
+
+
+
