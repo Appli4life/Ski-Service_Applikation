@@ -1,0 +1,987 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ski_serviceModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="altersgruppe">
+          <Key>
+            <PropertyRef Name="Altersgruppe_ID" />
+          </Key>
+          <Property Name="Altersgruppe_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Altersgruppe" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Preismultiplikator" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="angebot">
+          <Key>
+            <PropertyRef Name="Angebot_ID" />
+          </Key>
+          <Property Name="Angebot_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Preis_pro_Tag" Type="double" Nullable="false" />
+          <Property Name="Kategorie_ID" Type="int" Nullable="false" />
+          <Property Name="Marke_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="berechtigungsstufe">
+          <Key>
+            <PropertyRef Name="Berechtigungsstufe_ID" />
+          </Key>
+          <Property Name="Berechtigungsstufe_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Berechtigungsstufe" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="geschlecht">
+          <Key>
+            <PropertyRef Name="Geschlecht_ID" />
+          </Key>
+          <Property Name="Geschlecht_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Geschlecht" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kategorie">
+          <Key>
+            <PropertyRef Name="Kategorie_ID" />
+          </Key>
+          <Property Name="Kategorie_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategorie" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="kunde">
+          <Key>
+            <PropertyRef Name="Kunde_ID" />
+          </Key>
+          <Property Name="Kunde_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="marke">
+          <Key>
+            <PropertyRef Name="Marke_ID" />
+          </Key>
+          <Property Name="Marke_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marke" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="miete">
+          <Key>
+            <PropertyRef Name="Miete_ID" />
+          </Key>
+          <Property Name="Miete_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Angebot_ID" Type="int" Nullable="false" />
+          <Property Name="Kunde_ID" Type="int" Nullable="false" />
+          <Property Name="Miet_Datum" Type="date" Nullable="false" />
+          <Property Name="Rueckgabe_Datum" Type="date" Nullable="false" />
+          <Property Name="Menge" Type="int" Nullable="false" />
+          <Property Name="Koerpergroesse" Type="int" Nullable="false" />
+          <Property Name="Altersgruppe_ID" Type="int" Nullable="false" />
+          <Property Name="Geschlecht_ID" Type="int" Nullable="false" />
+          <Property Name="Status_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mitarbeiter">
+          <Key>
+            <PropertyRef Name="Mitarbeiter_ID" />
+          </Key>
+          <Property Name="Mitarbeiter_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Berechtigungsstufe_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="Status_ID" />
+          </Key>
+          <Property Name="Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.ski_service.alle_angebote_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="alle_angebote_view">
+          <Key>
+            <PropertyRef Name="Preis" />
+            <PropertyRef Name="Kategorie" />
+            <PropertyRef Name="Marke" />
+          </Key>
+          <Property Name="Preis" Type="double" Nullable="false" />
+          <Property Name="Kategorie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Marke" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.ski_service.alle_miete_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="alle_miete_view">
+          <Key>
+            <PropertyRef Name="Miete_ID" />
+            <PropertyRef Name="Angebot_ID" />
+            <PropertyRef Name="Kunde_ID" />
+            <PropertyRef Name="Miet_Datum" />
+            <PropertyRef Name="Rueckgabe_Datum" />
+            <PropertyRef Name="Menge" />
+            <PropertyRef Name="Koerpergroesse" />
+            <PropertyRef Name="Altersgruppe_ID" />
+            <PropertyRef Name="Geschlecht_ID" />
+            <PropertyRef Name="Status_ID" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Telefon" />
+            <PropertyRef Name="Kategorie" />
+            <PropertyRef Name="Marke" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Miete_ID" Type="int" Nullable="false" />
+          <Property Name="Angebot_ID" Type="int" Nullable="false" />
+          <Property Name="Kunde_ID" Type="int" Nullable="false" />
+          <Property Name="Miet_Datum" Type="date" Nullable="false" />
+          <Property Name="Rueckgabe_Datum" Type="date" Nullable="false" />
+          <Property Name="Menge" Type="int" Nullable="false" />
+          <Property Name="Koerpergroesse" Type="int" Nullable="false" />
+          <Property Name="Altersgruppe_ID" Type="int" Nullable="false" />
+          <Property Name="Geschlecht_ID" Type="int" Nullable="false" />
+          <Property Name="Status_ID" Type="int" Nullable="false" />
+          <Property Name="concat(K.Nachname, ' ', K.Vorname)" Type="varchar" MaxLength="101" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategorie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Marke" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.ski_service.alle_mitarbeiter_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="alle_mitarbeiter_view">
+          <Key>
+            <PropertyRef Name="Mitarbeiter_ID" />
+            <PropertyRef Name="username" />
+            <PropertyRef Name="Vorname" />
+            <PropertyRef Name="Nachname" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Telefon" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Berechtigungsstufe_ID" />
+            <PropertyRef Name="Berechtigungsstufe" />
+          </Key>
+          <Property Name="Mitarbeiter_ID" Type="int" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nachname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Berechtigungsstufe_ID" Type="int" Nullable="false" />
+          <Property Name="Berechtigungsstufe" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.ski_service.detail_miete_view' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="detail_miete_view">
+          <Key>
+            <PropertyRef Name="Miete_ID" />
+            <PropertyRef Name="Angebot_ID" />
+            <PropertyRef Name="Kunde_ID" />
+            <PropertyRef Name="Miet_Datum" />
+            <PropertyRef Name="Rueckgabe_Datum" />
+            <PropertyRef Name="Menge" />
+            <PropertyRef Name="Koerpergroesse" />
+            <PropertyRef Name="Altersgruppe_ID" />
+            <PropertyRef Name="Geschlecht_ID" />
+            <PropertyRef Name="Status_ID" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Telefon" />
+            <PropertyRef Name="Kategorie" />
+            <PropertyRef Name="Marke" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Preis" />
+          </Key>
+          <Property Name="Miete_ID" Type="int" Nullable="false" />
+          <Property Name="Angebot_ID" Type="int" Nullable="false" />
+          <Property Name="Kunde_ID" Type="int" Nullable="false" />
+          <Property Name="Miet_Datum" Type="date" Nullable="false" />
+          <Property Name="Rueckgabe_Datum" Type="date" Nullable="false" />
+          <Property Name="Menge" Type="int" Nullable="false" />
+          <Property Name="Koerpergroesse" Type="int" Nullable="false" />
+          <Property Name="Altersgruppe_ID" Type="int" Nullable="false" />
+          <Property Name="Geschlecht_ID" Type="int" Nullable="false" />
+          <Property Name="Status_ID" Type="int" Nullable="false" />
+          <Property Name="concat(K.Nachname, ' ', K.Vorname)" Type="varchar" MaxLength="101" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategorie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Marke" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Preis" Type="double" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Angebot_Kategorie">
+          <End Role="kategorie" Type="Self.kategorie" Multiplicity="1" />
+          <End Role="angebot" Type="Self.angebot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategorie">
+              <PropertyRef Name="Kategorie_ID" />
+            </Principal>
+            <Dependent Role="angebot">
+              <PropertyRef Name="Kategorie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Angebot_Marke1">
+          <End Role="marke" Type="Self.marke" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="angebot" Type="Self.angebot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marke">
+              <PropertyRef Name="Marke_ID" />
+            </Principal>
+            <Dependent Role="angebot">
+              <PropertyRef Name="Marke_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Miete_Angebot1">
+          <End Role="angebot" Type="Self.angebot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="angebot">
+              <PropertyRef Name="Angebot_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Angebot_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Miete_Kunde1">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Kunde_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Kunde_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mitarbeiter_Berechtigungsstufe1">
+          <End Role="berechtigungsstufe" Type="Self.berechtigungsstufe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="berechtigungsstufe">
+              <PropertyRef Name="Berechtigungsstufe_ID" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="Berechtigungsstufe_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Miete_Altersgruppe_fk1">
+          <End Role="altersgruppe" Type="Self.altersgruppe" Multiplicity="1" />
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="altersgruppe">
+              <PropertyRef Name="Altersgruppe_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Altersgruppe_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Miete_Geschlecht_fk1">
+          <End Role="geschlecht" Type="Self.geschlecht" Multiplicity="1" />
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="geschlecht">
+              <PropertyRef Name="Geschlecht_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Geschlecht_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Miete_Status_fk1">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="Status_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ski_serviceModelStoreContainer">
+          <EntitySet Name="altersgruppe" EntityType="Self.altersgruppe" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="angebot" EntityType="Self.angebot" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="berechtigungsstufe" EntityType="Self.berechtigungsstufe" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="geschlecht" EntityType="Self.geschlecht" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="kategorie" EntityType="Self.kategorie" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="kunde" EntityType="Self.kunde" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="marke" EntityType="Self.marke" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="miete" EntityType="Self.miete" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="mitarbeiter" EntityType="Self.mitarbeiter" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="ski_service" store:Type="Tables" />
+          <EntitySet Name="alle_angebote_view" EntityType="Self.alle_angebote_view" store:Type="Views" store:Schema="ski_service">
+            <DefiningQuery>SELECT 
+`alle_angebote_view`.`Preis`, 
+`alle_angebote_view`.`Kategorie`, 
+`alle_angebote_view`.`Marke`
+ FROM `alle_angebote_view` AS `alle_angebote_view`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="alle_miete_view" EntityType="Self.alle_miete_view" store:Type="Views" store:Schema="ski_service">
+            <DefiningQuery>SELECT 
+`alle_miete_view`.`Miete_ID`, 
+`alle_miete_view`.`Angebot_ID`, 
+`alle_miete_view`.`Kunde_ID`, 
+`alle_miete_view`.`Miet_Datum`, 
+`alle_miete_view`.`Rueckgabe_Datum`, 
+`alle_miete_view`.`Menge`, 
+`alle_miete_view`.`Koerpergroesse`, 
+`alle_miete_view`.`Altersgruppe_ID`, 
+`alle_miete_view`.`Geschlecht_ID`, 
+`alle_miete_view`.`Status_ID`, 
+`alle_miete_view`.concat(K.Nachname, ' ', K.Vorname), 
+`alle_miete_view`.`Email`, 
+`alle_miete_view`.`Telefon`, 
+`alle_miete_view`.`Kategorie`, 
+`alle_miete_view`.`Marke`, 
+`alle_miete_view`.`Status`
+ FROM `alle_miete_view` AS `alle_miete_view`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="alle_mitarbeiter_view" EntityType="Self.alle_mitarbeiter_view" store:Type="Views" store:Schema="ski_service">
+            <DefiningQuery>SELECT 
+`alle_mitarbeiter_view`.`Mitarbeiter_ID`, 
+`alle_mitarbeiter_view`.`username`, 
+`alle_mitarbeiter_view`.`Vorname`, 
+`alle_mitarbeiter_view`.`Nachname`, 
+`alle_mitarbeiter_view`.`Email`, 
+`alle_mitarbeiter_view`.`Telefon`, 
+`alle_mitarbeiter_view`.`Password`, 
+`alle_mitarbeiter_view`.`Berechtigungsstufe_ID`, 
+`alle_mitarbeiter_view`.`Berechtigungsstufe`
+ FROM `alle_mitarbeiter_view` AS `alle_mitarbeiter_view`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="detail_miete_view" EntityType="Self.detail_miete_view" store:Type="Views" store:Schema="ski_service">
+            <DefiningQuery>SELECT 
+`detail_miete_view`.`Miete_ID`, 
+`detail_miete_view`.`Angebot_ID`, 
+`detail_miete_view`.`Kunde_ID`, 
+`detail_miete_view`.`Miet_Datum`, 
+`detail_miete_view`.`Rueckgabe_Datum`, 
+`detail_miete_view`.`Menge`, 
+`detail_miete_view`.`Koerpergroesse`, 
+`detail_miete_view`.`Altersgruppe_ID`, 
+`detail_miete_view`.`Geschlecht_ID`, 
+`detail_miete_view`.`Status_ID`, 
+`detail_miete_view`.concat(K.Nachname, ' ', K.Vorname), 
+`detail_miete_view`.`Email`, 
+`detail_miete_view`.`Telefon`, 
+`detail_miete_view`.`Kategorie`, 
+`detail_miete_view`.`Marke`, 
+`detail_miete_view`.`Status`, 
+`detail_miete_view`.`Preis`
+ FROM `detail_miete_view` AS `detail_miete_view`</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_Angebot_Kategorie" Association="Self.fk_Angebot_Kategorie">
+            <End Role="kategorie" EntitySet="kategorie" />
+            <End Role="angebot" EntitySet="angebot" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Angebot_Marke1" Association="Self.fk_Angebot_Marke1">
+            <End Role="marke" EntitySet="marke" />
+            <End Role="angebot" EntitySet="angebot" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Miete_Angebot1" Association="Self.fk_Miete_Angebot1">
+            <End Role="angebot" EntitySet="angebot" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Miete_Kunde1" Association="Self.fk_Miete_Kunde1">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mitarbeiter_Berechtigungsstufe1" Association="Self.fk_mitarbeiter_Berechtigungsstufe1">
+            <End Role="berechtigungsstufe" EntitySet="berechtigungsstufe" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="Miete_Altersgruppe_fk1" Association="Self.Miete_Altersgruppe_fk1">
+            <End Role="altersgruppe" EntitySet="altersgruppe" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="Miete_Geschlecht_fk1" Association="Self.Miete_Geschlecht_fk1">
+            <End Role="geschlecht" EntitySet="geschlecht" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="Miete_Status_fk1" Association="Self.Miete_Status_fk1">
+            <End Role="status" EntitySet="status" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ski_serviceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="altersgruppe">
+          <Key>
+            <PropertyRef Name="Altersgruppe_ID" />
+          </Key>
+          <Property Name="Altersgruppe_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Altersgruppe1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Preismultiplikator" Type="Double" Nullable="false" />
+          <NavigationProperty Name="miete" Relationship="Self.Miete_Altersgruppe_fk1" FromRole="altersgruppe" ToRole="miete" />
+        </EntityType>
+        <EntityType Name="angebot">
+          <Key>
+            <PropertyRef Name="Angebot_ID" />
+          </Key>
+          <Property Name="Angebot_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Preis_pro_Tag" Type="Double" Nullable="false" />
+          <Property Name="Kategorie_ID" Type="Int32" Nullable="false" />
+          <Property Name="Marke_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kategorie" Relationship="Self.fk_Angebot_Kategorie" FromRole="angebot" ToRole="kategorie" />
+          <NavigationProperty Name="marke" Relationship="Self.fk_Angebot_Marke1" FromRole="angebot" ToRole="marke" />
+          <NavigationProperty Name="miete" Relationship="Self.fk_Miete_Angebot1" FromRole="angebot" ToRole="miete" />
+        </EntityType>
+        <EntityType Name="berechtigungsstufe">
+          <Key>
+            <PropertyRef Name="Berechtigungsstufe_ID" />
+          </Key>
+          <Property Name="Berechtigungsstufe_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Berechtigungsstufe1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.fk_mitarbeiter_Berechtigungsstufe1" FromRole="berechtigungsstufe" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="geschlecht">
+          <Key>
+            <PropertyRef Name="Geschlecht_ID" />
+          </Key>
+          <Property Name="Geschlecht_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Geschlecht1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="miete" Relationship="Self.Miete_Geschlecht_fk1" FromRole="geschlecht" ToRole="miete" />
+        </EntityType>
+        <EntityType Name="kategorie">
+          <Key>
+            <PropertyRef Name="Kategorie_ID" />
+          </Key>
+          <Property Name="Kategorie_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategorie1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="angebot" Relationship="Self.fk_Angebot_Kategorie" FromRole="kategorie" ToRole="angebot" />
+        </EntityType>
+        <EntityType Name="kunde">
+          <Key>
+            <PropertyRef Name="Kunde_ID" />
+          </Key>
+          <Property Name="Kunde_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="miete" Relationship="Self.fk_Miete_Kunde1" FromRole="kunde" ToRole="miete" />
+        </EntityType>
+        <EntityType Name="marke">
+          <Key>
+            <PropertyRef Name="Marke_ID" />
+          </Key>
+          <Property Name="Marke_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marke1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="angebot" Relationship="Self.fk_Angebot_Marke1" FromRole="marke" ToRole="angebot" />
+        </EntityType>
+        <EntityType Name="miete">
+          <Key>
+            <PropertyRef Name="Miete_ID" />
+          </Key>
+          <Property Name="Miete_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Angebot_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kunde_ID" Type="Int32" Nullable="false" />
+          <Property Name="Miet_Datum" Type="DateTime" Nullable="false" />
+          <Property Name="Rueckgabe_Datum" Type="DateTime" Nullable="false" />
+          <Property Name="Menge" Type="Int32" Nullable="false" />
+          <Property Name="Koerpergroesse" Type="Int32" Nullable="false" />
+          <Property Name="Altersgruppe_ID" Type="Int32" Nullable="false" />
+          <Property Name="Geschlecht_ID" Type="Int32" Nullable="false" />
+          <Property Name="Status_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="altersgruppe" Relationship="Self.Miete_Altersgruppe_fk1" FromRole="miete" ToRole="altersgruppe" />
+          <NavigationProperty Name="angebot" Relationship="Self.fk_Miete_Angebot1" FromRole="miete" ToRole="angebot" />
+          <NavigationProperty Name="geschlecht" Relationship="Self.Miete_Geschlecht_fk1" FromRole="miete" ToRole="geschlecht" />
+          <NavigationProperty Name="kunde" Relationship="Self.fk_Miete_Kunde1" FromRole="miete" ToRole="kunde" />
+          <NavigationProperty Name="status" Relationship="Self.Miete_Status_fk1" FromRole="miete" ToRole="status" />
+        </EntityType>
+        <EntityType Name="mitarbeiter">
+          <Key>
+            <PropertyRef Name="Mitarbeiter_ID" />
+          </Key>
+          <Property Name="Mitarbeiter_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Berechtigungsstufe_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="berechtigungsstufe" Relationship="Self.fk_mitarbeiter_Berechtigungsstufe1" FromRole="mitarbeiter" ToRole="berechtigungsstufe" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="Status_ID" />
+          </Key>
+          <Property Name="Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="miete" Relationship="Self.Miete_Status_fk1" FromRole="status" ToRole="miete" />
+        </EntityType>
+        <EntityType Name="alle_angebote_view">
+          <Key>
+            <PropertyRef Name="Preis" />
+            <PropertyRef Name="Kategorie" />
+            <PropertyRef Name="Marke" />
+          </Key>
+          <Property Name="Preis" Type="Double" Nullable="false" />
+          <Property Name="Kategorie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marke" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alle_miete_view">
+          <Key>
+            <PropertyRef Name="Miete_ID" />
+            <PropertyRef Name="Angebot_ID" />
+            <PropertyRef Name="Kunde_ID" />
+            <PropertyRef Name="Miet_Datum" />
+            <PropertyRef Name="Rueckgabe_Datum" />
+            <PropertyRef Name="Menge" />
+            <PropertyRef Name="Koerpergroesse" />
+            <PropertyRef Name="Altersgruppe_ID" />
+            <PropertyRef Name="Geschlecht_ID" />
+            <PropertyRef Name="Status_ID" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Telefon" />
+            <PropertyRef Name="Kategorie" />
+            <PropertyRef Name="Marke" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Miete_ID" Type="Int32" Nullable="false" />
+          <Property Name="Angebot_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kunde_ID" Type="Int32" Nullable="false" />
+          <Property Name="Miet_Datum" Type="DateTime" Nullable="false" />
+          <Property Name="Rueckgabe_Datum" Type="DateTime" Nullable="false" />
+          <Property Name="Menge" Type="Int32" Nullable="false" />
+          <Property Name="Koerpergroesse" Type="Int32" Nullable="false" />
+          <Property Name="Altersgruppe_ID" Type="Int32" Nullable="false" />
+          <Property Name="Geschlecht_ID" Type="Int32" Nullable="false" />
+          <Property Name="Status_ID" Type="Int32" Nullable="false" />
+          <Property Name="concat_K_Nachname_______K_Vorname_" Type="String" MaxLength="101" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Kategorie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marke" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="alle_mitarbeiter_view">
+          <Key>
+            <PropertyRef Name="Mitarbeiter_ID" />
+            <PropertyRef Name="username" />
+            <PropertyRef Name="Vorname" />
+            <PropertyRef Name="Nachname" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Telefon" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Berechtigungsstufe_ID" />
+            <PropertyRef Name="Berechtigungsstufe" />
+          </Key>
+          <Property Name="Mitarbeiter_ID" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Berechtigungsstufe_ID" Type="Int32" Nullable="false" />
+          <Property Name="Berechtigungsstufe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detail_miete_view">
+          <Key>
+            <PropertyRef Name="Miete_ID" />
+            <PropertyRef Name="Angebot_ID" />
+            <PropertyRef Name="Kunde_ID" />
+            <PropertyRef Name="Miet_Datum" />
+            <PropertyRef Name="Rueckgabe_Datum" />
+            <PropertyRef Name="Menge" />
+            <PropertyRef Name="Koerpergroesse" />
+            <PropertyRef Name="Altersgruppe_ID" />
+            <PropertyRef Name="Geschlecht_ID" />
+            <PropertyRef Name="Status_ID" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Telefon" />
+            <PropertyRef Name="Kategorie" />
+            <PropertyRef Name="Marke" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Preis" />
+          </Key>
+          <Property Name="Miete_ID" Type="Int32" Nullable="false" />
+          <Property Name="Angebot_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kunde_ID" Type="Int32" Nullable="false" />
+          <Property Name="Miet_Datum" Type="DateTime" Nullable="false" />
+          <Property Name="Rueckgabe_Datum" Type="DateTime" Nullable="false" />
+          <Property Name="Menge" Type="Int32" Nullable="false" />
+          <Property Name="Koerpergroesse" Type="Int32" Nullable="false" />
+          <Property Name="Altersgruppe_ID" Type="Int32" Nullable="false" />
+          <Property Name="Geschlecht_ID" Type="Int32" Nullable="false" />
+          <Property Name="Status_ID" Type="Int32" Nullable="false" />
+          <Property Name="concat_K_Nachname_______K_Vorname_" Type="String" MaxLength="101" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Kategorie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marke" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Preis" Type="Double" Nullable="false" />
+        </EntityType>
+        <Association Name="Miete_Altersgruppe_fk1">
+          <End Role="altersgruppe" Type="Self.altersgruppe" Multiplicity="1" />
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="altersgruppe">
+              <PropertyRef Name="Altersgruppe_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Altersgruppe_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Angebot_Kategorie">
+          <End Role="kategorie" Type="Self.kategorie" Multiplicity="1" />
+          <End Role="angebot" Type="Self.angebot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategorie">
+              <PropertyRef Name="Kategorie_ID" />
+            </Principal>
+            <Dependent Role="angebot">
+              <PropertyRef Name="Kategorie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Angebot_Marke1">
+          <End Role="marke" Type="Self.marke" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="angebot" Type="Self.angebot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marke">
+              <PropertyRef Name="Marke_ID" />
+            </Principal>
+            <Dependent Role="angebot">
+              <PropertyRef Name="Marke_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Miete_Angebot1">
+          <End Role="angebot" Type="Self.angebot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="angebot">
+              <PropertyRef Name="Angebot_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Angebot_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mitarbeiter_Berechtigungsstufe1">
+          <End Role="berechtigungsstufe" Type="Self.berechtigungsstufe" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="berechtigungsstufe">
+              <PropertyRef Name="Berechtigungsstufe_ID" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="Berechtigungsstufe_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Miete_Geschlecht_fk1">
+          <End Role="geschlecht" Type="Self.geschlecht" Multiplicity="1" />
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="geschlecht">
+              <PropertyRef Name="Geschlecht_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Geschlecht_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Miete_Kunde1">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="Kunde_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Kunde_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Miete_Status_fk1">
+          <End Role="status" Type="Self.status" Multiplicity="1" />
+          <End Role="miete" Type="Self.miete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="Status_ID" />
+            </Principal>
+            <Dependent Role="miete">
+              <PropertyRef Name="Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ski_serviceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="altersgruppe" EntityType="Self.altersgruppe" />
+          <EntitySet Name="angebot" EntityType="Self.angebot" />
+          <EntitySet Name="berechtigungsstufe" EntityType="Self.berechtigungsstufe" />
+          <EntitySet Name="geschlecht" EntityType="Self.geschlecht" />
+          <EntitySet Name="kategorie" EntityType="Self.kategorie" />
+          <EntitySet Name="kunde" EntityType="Self.kunde" />
+          <EntitySet Name="marke" EntityType="Self.marke" />
+          <EntitySet Name="miete" EntityType="Self.miete" />
+          <EntitySet Name="mitarbeiter" EntityType="Self.mitarbeiter" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="alle_angebote_view" EntityType="Self.alle_angebote_view" />
+          <EntitySet Name="alle_miete_view" EntityType="Self.alle_miete_view" />
+          <EntitySet Name="alle_mitarbeiter_view" EntityType="Self.alle_mitarbeiter_view" />
+          <EntitySet Name="detail_miete_view" EntityType="Self.detail_miete_view" />
+          <AssociationSet Name="Miete_Altersgruppe_fk1" Association="Self.Miete_Altersgruppe_fk1">
+            <End Role="altersgruppe" EntitySet="altersgruppe" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Angebot_Kategorie" Association="Self.fk_Angebot_Kategorie">
+            <End Role="kategorie" EntitySet="kategorie" />
+            <End Role="angebot" EntitySet="angebot" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Angebot_Marke1" Association="Self.fk_Angebot_Marke1">
+            <End Role="marke" EntitySet="marke" />
+            <End Role="angebot" EntitySet="angebot" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Miete_Angebot1" Association="Self.fk_Miete_Angebot1">
+            <End Role="angebot" EntitySet="angebot" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mitarbeiter_Berechtigungsstufe1" Association="Self.fk_mitarbeiter_Berechtigungsstufe1">
+            <End Role="berechtigungsstufe" EntitySet="berechtigungsstufe" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="Miete_Geschlecht_fk1" Association="Self.Miete_Geschlecht_fk1">
+            <End Role="geschlecht" EntitySet="geschlecht" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Miete_Kunde1" Association="Self.fk_Miete_Kunde1">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+          <AssociationSet Name="Miete_Status_fk1" Association="Self.Miete_Status_fk1">
+            <End Role="status" EntitySet="status" />
+            <End Role="miete" EntitySet="miete" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ski_serviceModelStoreContainer" CdmEntityContainer="ski_serviceEntities">
+          <EntitySetMapping Name="altersgruppe">
+            <EntityTypeMapping TypeName="ski_serviceModel.altersgruppe">
+              <MappingFragment StoreEntitySet="altersgruppe">
+                <ScalarProperty Name="Altersgruppe_ID" ColumnName="Altersgruppe_ID" />
+                <ScalarProperty Name="Altersgruppe1" ColumnName="Altersgruppe" />
+                <ScalarProperty Name="Preismultiplikator" ColumnName="Preismultiplikator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="angebot">
+            <EntityTypeMapping TypeName="ski_serviceModel.angebot">
+              <MappingFragment StoreEntitySet="angebot">
+                <ScalarProperty Name="Angebot_ID" ColumnName="Angebot_ID" />
+                <ScalarProperty Name="Preis_pro_Tag" ColumnName="Preis_pro_Tag" />
+                <ScalarProperty Name="Kategorie_ID" ColumnName="Kategorie_ID" />
+                <ScalarProperty Name="Marke_ID" ColumnName="Marke_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="berechtigungsstufe">
+            <EntityTypeMapping TypeName="ski_serviceModel.berechtigungsstufe">
+              <MappingFragment StoreEntitySet="berechtigungsstufe">
+                <ScalarProperty Name="Berechtigungsstufe_ID" ColumnName="Berechtigungsstufe_ID" />
+                <ScalarProperty Name="Berechtigungsstufe1" ColumnName="Berechtigungsstufe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="geschlecht">
+            <EntityTypeMapping TypeName="ski_serviceModel.geschlecht">
+              <MappingFragment StoreEntitySet="geschlecht">
+                <ScalarProperty Name="Geschlecht_ID" ColumnName="Geschlecht_ID" />
+                <ScalarProperty Name="Geschlecht1" ColumnName="Geschlecht" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kategorie">
+            <EntityTypeMapping TypeName="ski_serviceModel.kategorie">
+              <MappingFragment StoreEntitySet="kategorie">
+                <ScalarProperty Name="Kategorie_ID" ColumnName="Kategorie_ID" />
+                <ScalarProperty Name="Kategorie1" ColumnName="Kategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kunde">
+            <EntityTypeMapping TypeName="ski_serviceModel.kunde">
+              <MappingFragment StoreEntitySet="kunde">
+                <ScalarProperty Name="Kunde_ID" ColumnName="Kunde_ID" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marke">
+            <EntityTypeMapping TypeName="ski_serviceModel.marke">
+              <MappingFragment StoreEntitySet="marke">
+                <ScalarProperty Name="Marke_ID" ColumnName="Marke_ID" />
+                <ScalarProperty Name="Marke1" ColumnName="Marke" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="miete">
+            <EntityTypeMapping TypeName="ski_serviceModel.miete">
+              <MappingFragment StoreEntitySet="miete">
+                <ScalarProperty Name="Miete_ID" ColumnName="Miete_ID" />
+                <ScalarProperty Name="Angebot_ID" ColumnName="Angebot_ID" />
+                <ScalarProperty Name="Kunde_ID" ColumnName="Kunde_ID" />
+                <ScalarProperty Name="Miet_Datum" ColumnName="Miet_Datum" />
+                <ScalarProperty Name="Rueckgabe_Datum" ColumnName="Rueckgabe_Datum" />
+                <ScalarProperty Name="Menge" ColumnName="Menge" />
+                <ScalarProperty Name="Koerpergroesse" ColumnName="Koerpergroesse" />
+                <ScalarProperty Name="Altersgruppe_ID" ColumnName="Altersgruppe_ID" />
+                <ScalarProperty Name="Geschlecht_ID" ColumnName="Geschlecht_ID" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mitarbeiter">
+            <EntityTypeMapping TypeName="ski_serviceModel.mitarbeiter">
+              <MappingFragment StoreEntitySet="mitarbeiter">
+                <ScalarProperty Name="Mitarbeiter_ID" ColumnName="Mitarbeiter_ID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Berechtigungsstufe_ID" ColumnName="Berechtigungsstufe_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="ski_serviceModel.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+                <ScalarProperty Name="Status1" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alle_angebote_view">
+            <EntityTypeMapping TypeName="ski_serviceModel.alle_angebote_view">
+              <MappingFragment StoreEntitySet="alle_angebote_view">
+                <ScalarProperty Name="Preis" ColumnName="Preis" />
+                <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
+                <ScalarProperty Name="Marke" ColumnName="Marke" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alle_miete_view">
+            <EntityTypeMapping TypeName="ski_serviceModel.alle_miete_view">
+              <MappingFragment StoreEntitySet="alle_miete_view">
+                <ScalarProperty Name="Miete_ID" ColumnName="Miete_ID" />
+                <ScalarProperty Name="Angebot_ID" ColumnName="Angebot_ID" />
+                <ScalarProperty Name="Kunde_ID" ColumnName="Kunde_ID" />
+                <ScalarProperty Name="Miet_Datum" ColumnName="Miet_Datum" />
+                <ScalarProperty Name="Rueckgabe_Datum" ColumnName="Rueckgabe_Datum" />
+                <ScalarProperty Name="Menge" ColumnName="Menge" />
+                <ScalarProperty Name="Koerpergroesse" ColumnName="Koerpergroesse" />
+                <ScalarProperty Name="Altersgruppe_ID" ColumnName="Altersgruppe_ID" />
+                <ScalarProperty Name="Geschlecht_ID" ColumnName="Geschlecht_ID" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+                <ScalarProperty Name="concat_K_Nachname_______K_Vorname_" ColumnName="concat(K.Nachname, ' ', K.Vorname)" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
+                <ScalarProperty Name="Marke" ColumnName="Marke" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alle_mitarbeiter_view">
+            <EntityTypeMapping TypeName="ski_serviceModel.alle_mitarbeiter_view">
+              <MappingFragment StoreEntitySet="alle_mitarbeiter_view">
+                <ScalarProperty Name="Mitarbeiter_ID" ColumnName="Mitarbeiter_ID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Berechtigungsstufe_ID" ColumnName="Berechtigungsstufe_ID" />
+                <ScalarProperty Name="Berechtigungsstufe" ColumnName="Berechtigungsstufe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detail_miete_view">
+            <EntityTypeMapping TypeName="ski_serviceModel.detail_miete_view">
+              <MappingFragment StoreEntitySet="detail_miete_view">
+                <ScalarProperty Name="Miete_ID" ColumnName="Miete_ID" />
+                <ScalarProperty Name="Angebot_ID" ColumnName="Angebot_ID" />
+                <ScalarProperty Name="Kunde_ID" ColumnName="Kunde_ID" />
+                <ScalarProperty Name="Miet_Datum" ColumnName="Miet_Datum" />
+                <ScalarProperty Name="Rueckgabe_Datum" ColumnName="Rueckgabe_Datum" />
+                <ScalarProperty Name="Menge" ColumnName="Menge" />
+                <ScalarProperty Name="Koerpergroesse" ColumnName="Koerpergroesse" />
+                <ScalarProperty Name="Altersgruppe_ID" ColumnName="Altersgruppe_ID" />
+                <ScalarProperty Name="Geschlecht_ID" ColumnName="Geschlecht_ID" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+                <ScalarProperty Name="concat_K_Nachname_______K_Vorname_" ColumnName="concat(K.Nachname, ' ', K.Vorname)" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Kategorie" ColumnName="Kategorie" />
+                <ScalarProperty Name="Marke" ColumnName="Marke" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Preis" ColumnName="Preis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

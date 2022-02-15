@@ -10,6 +10,15 @@ namespace Ski_Service_Applikation.Controllers
     {
         public ActionResult Index()
         {
+
+            using (var context = new ski_serviceEntities())
+            {
+                var List<Angebot>Angebote = context.alle_angebote_view.ToList();
+
+                Angebote
+                
+
+            }
             return View();
         }
 

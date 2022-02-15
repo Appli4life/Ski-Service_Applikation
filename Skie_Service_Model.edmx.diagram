@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b84fc6250747474ba1525916eb9c21dd" Name="Diagram1">
+        <EntityTypeShape EntityType="ski_serviceModel.altersgruppe" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.angebot" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.berechtigungsstufe" Width="1.5" PointX="5.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.geschlecht" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.kategorie" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.kunde" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.marke" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.miete" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.mitarbeiter" Width="1.5" PointX="8" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.status" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.alle_angebote_view" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.alle_miete_view" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.alle_mitarbeiter_view" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.detail_miete_view" Width="1.5" PointX="7.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="ski_serviceModel.Miete_Altersgruppe_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="ski_serviceModel.fk_Angebot_Kategorie" ManuallyRouted="false" />
+        <AssociationConnector Association="ski_serviceModel.fk_Angebot_Marke1" ManuallyRouted="false" />
+        <AssociationConnector Association="ski_serviceModel.fk_Miete_Angebot1" ManuallyRouted="false" />
+        <AssociationConnector Association="ski_serviceModel.fk_mitarbeiter_Berechtigungsstufe1" ManuallyRouted="false" />
+        <AssociationConnector Association="ski_serviceModel.Miete_Geschlecht_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="ski_serviceModel.fk_Miete_Kunde1" ManuallyRouted="false" />
+        <AssociationConnector Association="ski_serviceModel.Miete_Status_fk1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
