@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="ski_serviceModel.kategorie" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ski_serviceModel.kunde" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ski_serviceModel.marke" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ski_serviceModel.miete" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.miete" Width="1.5" PointX="6.125" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ski_serviceModel.mitarbeiter" Width="1.5" PointX="8" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="ski_serviceModel.status" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ski_serviceModel.alle_angebote_view" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
