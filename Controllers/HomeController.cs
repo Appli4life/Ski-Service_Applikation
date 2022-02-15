@@ -17,13 +17,25 @@ namespace Ski_Service_Applikation.Controllers
         }
 
         public ActionResult About()
-        { 
-         
+        {
+
             using (var context = new ski_serviceEntities())
             {
                 List<angebot> Angebote = context.angebot.ToList();
 
                 var first = Angebote.First();
+
+                angebot a = new angebot()
+                {
+                    Kategorie_ID = 2,
+                    Marke_ID = 2,
+                    Preis_pro_Tag = 22.2
+                };
+
+                context.angebot.Add(a);
+
+                context.SaveChanges();
+
 
                 var ViewModel = new firstAngebotViewModel()
                 {

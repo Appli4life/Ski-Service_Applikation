@@ -17,8 +17,8 @@
         <EntityTypeShape EntityType="ski_serviceModel.status" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ski_serviceModel.alle_angebote_view" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ski_serviceModel.alle_miete_view" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ski_serviceModel.alle_mitarbeiter_view" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ski_serviceModel.detail_miete_view" Width="1.5" PointX="7.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.alle_mitarbeiter_view" Width="1.5" PointX="6.125" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ski_serviceModel.detail_miete_view" Width="1.5" PointX="8" PointY="9.75" IsExpanded="true" />
         <AssociationConnector Association="ski_serviceModel.Miete_Altersgruppe_fk1" ManuallyRouted="false" />
         <AssociationConnector Association="ski_serviceModel.fk_Angebot_Kategorie" ManuallyRouted="false" />
         <AssociationConnector Association="ski_serviceModel.fk_Angebot_Marke1" ManuallyRouted="false" />

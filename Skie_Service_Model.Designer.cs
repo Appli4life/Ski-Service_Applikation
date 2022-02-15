@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Simon Müller\Source\Repos\Appli4life\Ski-Service_Applikation\Skie_Service_Model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Simon Müller\OneDrive - ipso Bildung AG\ICT Module\2. Lehrjahr\Simon Müller ICT Modul 151\Praxisarbeit\Webseite\Ski-Service_Applikation\Skie_Service_Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
