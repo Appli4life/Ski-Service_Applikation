@@ -1,0 +1,49 @@
+﻿@model Ski_Service_Applikation.angebot
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>angebot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Preis_pro_Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preis_pro_Tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kategorie.Kategorie1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kategorie.Kategorie1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.marke.Marke1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marke.Marke1)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
