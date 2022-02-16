@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Ski_Service_Applikation.ViewModels;
+﻿using System.Web.Mvc;
 
 namespace Ski_Service_Applikation.Controllers
 {
@@ -17,22 +12,7 @@ namespace Ski_Service_Applikation.Controllers
 
         public ActionResult About()
         {
-            using (var context = new ski_serviceEntities())
-            {
-  
-                List<angebot> Angebote = context.angebot.ToList();
-
-                var first = Angebote.First();
-
-                var ViewModel = new firstAngebotViewModel()
-                {
-                    first_angebot = first
-                };
-
-                return View(ViewModel);
-
-            }
-
+            return View();
         }
 
         public ActionResult Contact()

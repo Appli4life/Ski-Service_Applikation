@@ -191,6 +191,7 @@
     </Compile>
     <Compile Include="Controllers\AngebotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="detail_miete_view.cs">
       <DependentUpon>Skie_Service_Model.tt</DependentUpon>
     </Compile>
@@ -234,7 +235,6 @@
     <Compile Include="status.cs">
       <DependentUpon>Skie_Service_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\firstAngebotViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -299,6 +299,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
