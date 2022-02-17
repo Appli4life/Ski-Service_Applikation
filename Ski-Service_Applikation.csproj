@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AngebotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\WarenkorbController.cs" />
     <Compile Include="detail_miete_view.cs">
       <DependentUpon>Skie_Service_Model.tt</DependentUpon>
     </Compile>
@@ -295,6 +296,7 @@
     <Content Include="Views\Angebot\Details.cshtml" />
     <Content Include="Views\Angebot\Edit.cshtml" />
     <Content Include="Views\Angebot\Index.cshtml" />
+    <Content Include="Views\Warenkorb\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

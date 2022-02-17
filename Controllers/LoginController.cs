@@ -19,6 +19,7 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(kunde k)
         {
+            
             if (ModelState.IsValid)
             {
                 using (var context = new ski_serviceEntities())

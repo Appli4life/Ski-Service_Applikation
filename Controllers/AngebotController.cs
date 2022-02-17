@@ -21,6 +21,31 @@ namespace Ski_Service_Applikation.Controllers
             return View(angebot.ToList());
         }
 
+        // Angebot Hinuzufügen
+        public ActionResult Add(int? id)
+        {
+            if (Session["Logged_in"].Equals(true))
+            {
+                Redirect("/Login");
+            }
+
+            if (ModelState.IsValid)
+            {
+                if(db.angebot.Find(id) == null || Response.Cookies["Warenkorb"]["id"] != null)
+                    return HttpNotFound();
+            }            
+
+            HttpCookie Warenkorb = new HttpCookie("Warenkorb");
+            Warenkorb["id"] = id.ToString();
+            // 24 Stunde Cookie
+            Warenkorb.Expires.Add(new TimeSpan(24,0,0));
+            Response.Cookies.Add(Warenkorb);
+
+            RedirectToAction("/Warenkorb");
+
+            return HttpNotFound();
+        }
+
         // GET: Angebot/Details/5
         public ActionResult Details(int? id)
         {

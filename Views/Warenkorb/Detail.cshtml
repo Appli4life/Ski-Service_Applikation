@@ -1,0 +1,43 @@
+﻿@model Ski_Service_Applikation.angebot
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>angebot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Preis_pro_Tag)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preis_pro_Tag)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kategorie.Kategorie1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kategorie.Kategorie1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.marke.Marke1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marke.Marke1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Delete", "Delete")
+    @Html.ActionLink("Back to List", "Index")
+</p>
