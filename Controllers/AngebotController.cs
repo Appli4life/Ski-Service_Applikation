@@ -17,6 +17,13 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot
         public ActionResult Index()
         {
+            Session.Timeout = 15;
+            Session["Logged_in"] = true;
+            HttpCookie cookie = Request.Cookies["Warenkorb"];
+            if (cookie != null)
+            {
+                throw new Exception(cookie.Value.ToString());
+            }
             var angebot = db.angebot.Include(a => a.kategorie).Include(a => a.marke);
             return View(angebot.ToList());
         }
@@ -24,26 +31,26 @@ namespace Ski_Service_Applikation.Controllers
         // Angebot Hinuzufügen
         public ActionResult Add(int? id)
         {
-            if (Session["Logged_in"].Equals(true))
+            Session.Timeout = 15;
+            
+            if (Session["Logged_in"] == null)
             {
-                Redirect("/Login");
+                return Redirect("/Login");
             }
 
             if (ModelState.IsValid)
             {
-                if(db.angebot.Find(id) == null || Response.Cookies["Warenkorb"]["id"] != null)
+                angebot angebot = db.angebot.Find(id);
+
+                if (angebot == null)
                     return HttpNotFound();
-            }            
 
-            HttpCookie Warenkorb = new HttpCookie("Warenkorb");
-            Warenkorb["id"] = id.ToString();
-            // 24 Stunde Cookie
-            Warenkorb.Expires.Add(new TimeSpan(24,0,0));
-            Response.Cookies.Add(Warenkorb);
+                Response.Cookies["Warenkorb"].Value = angebot.Angebot_ID.ToString();
+                Response.Cookies["Warenkorb"].Expires = DateTime.Today.AddHours(10);
 
-            RedirectToAction("/Warenkorb");
+            }
 
-            return HttpNotFound();
+            return RedirectToAction("Index");
         }
 
         // GET: Angebot/Details/5

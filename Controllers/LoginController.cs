@@ -19,7 +19,6 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(kunde k)
         {
-            
             if (ModelState.IsValid)
             {
                 using (var context = new ski_serviceEntities())
@@ -52,6 +51,7 @@ namespace Ski_Service_Applikation.Controllers
                     var obj = context.mitarbeiter.Where(a => a.Email.Equals(m.Email) && a.Password.Equals(m.Password)).FirstOrDefault();
                     if (obj != null)
                     {
+                        Session.Timeout = 10;
                         Session["Logged_in"] = true;
                         Session["Stufe"] = obj.berechtigungsstufe.ToString();
                         Session["Kunde_ID"] = obj.Mitarbeiter_ID.ToString();

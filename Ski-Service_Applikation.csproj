@@ -191,6 +191,7 @@
     </Compile>
     <Compile Include="Controllers\AngebotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KundeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\WarenkorbController.cs" />
     <Compile Include="detail_miete_view.cs">
@@ -297,6 +298,11 @@
     <Content Include="Views\Angebot\Edit.cshtml" />
     <Content Include="Views\Angebot\Index.cshtml" />
     <Content Include="Views\Warenkorb\Detail.cshtml" />
+    <Content Include="Views\Kunde\Create.cshtml" />
+    <Content Include="Views\Kunde\Delete.cshtml" />
+    <Content Include="Views\Kunde\Details.cshtml" />
+    <Content Include="Views\Kunde\Edit.cshtml" />
+    <Content Include="Views\Kunde\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
