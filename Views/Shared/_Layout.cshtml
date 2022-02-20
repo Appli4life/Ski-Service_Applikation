@@ -10,18 +10,43 @@
         @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body class="bg">
+
+    <!-- src: https://mdbootstrap.com/docs/standard/navigation/navbar/ -->
     <!-- Navbar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="#">
-            <img src="~/Images/logo-small.png" alt="Logo" style="width:70px;">
-        </a>
-        <ul class="nav nav-pills">
-            <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })</li>
-        </ul>
-        
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="#">
+                <img src="~/Images/logo-small.png" alt="Logo" style="width:70px;">
+            </a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })</li>
+            </ul>
+
+            <div class="d-flex align-items-center">
+                <button class="btn btn-success">Login</button>
+            </div>
+
+        </div>
     </nav>
+
+    <!-- Navbar backup -->
+    @*<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" href="#">
+                <img src="~/Images/logo-small.png" alt="Logo" style="width:70px;">
+            </a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })</li>
+            </ul>
+            <span class="">
+                <button class="btn btn-success">Login</button>
+            </span>
+
+        </nav>*@
 
     @*<div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -43,12 +68,16 @@
             </div>
         </div>*@
     @*<div class="container body-content">*@
-        @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>*@
+
+
+    @RenderBody()
+
+
+    @*<hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
