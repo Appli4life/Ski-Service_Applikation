@@ -26,6 +26,8 @@ namespace Ski_Service_Applikation.Controllers
                     var obj = context.kunde.Where(a => a.Email.Equals(k.Email) && a.Password.Equals(k.Password)).FirstOrDefault();
                     if (obj != null)
                     {
+                        Session.Timeout = 10;
+
                         Session["Logged_in"] = true;
                         Session["Kunde_ID"] = obj.Kunde_ID.ToString();
                         Session["Vorname"] = obj.Vorname.ToString();
@@ -61,7 +63,7 @@ namespace Ski_Service_Applikation.Controllers
                         Session["Email"] = obj.Email.ToString();
                         Session["Telefon"] = obj.Telefon.ToString();
 
-                        return Redirect("/");
+                        return Redirect("/Miete");
                     }
                 }
             }

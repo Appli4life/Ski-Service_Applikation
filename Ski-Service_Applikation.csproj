@@ -306,12 +306,12 @@
     <Content Include="Views\Kunde\Details.cshtml" />
     <Content Include="Views\Kunde\Edit.cshtml" />
     <Content Include="Views\Kunde\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
