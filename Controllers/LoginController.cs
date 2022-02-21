@@ -22,8 +22,11 @@ namespace Ski_Service_Applikation.Controllers
             {
                 using (var context = new ski_serviceEntities())
                 {
-                    var obj = context.kunde.Where(a => a.Email.Equals(k.Email) && a.Password.Equals(k.Password)).FirstOrDefault();
-                    if (obj != null)
+                    var obj = context.kunde.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault()
+                        ?? context.mitarbeiter.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault();
+
+
+                    if (obj is kunde)
                     {
                         Session.Timeout = 10;
 
@@ -35,7 +38,9 @@ namespace Ski_Service_Applikation.Controllers
                         Session["Telefon"] = obj.Telefon.ToString();
 
                         return Redirect("/Angebot");
-
+                    }
+                    else if(obj is mitarbeiter)
+                    {
                         Session.Timeout = 10;
                         Session["Logged_in"] = true;
                         Session["Stufe"] = obj.berechtigungsstufe.ToString();
@@ -48,6 +53,8 @@ namespace Ski_Service_Applikation.Controllers
 
                         return Redirect("/Miete");
                     }
+
+
                 }
             }
             return View();

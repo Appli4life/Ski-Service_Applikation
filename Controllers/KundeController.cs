@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using Org.BouncyCastle.Crypto.Generators;
 using Ski_Service_Applikation;
 
 namespace Ski_Service_Applikation.Controllers
@@ -69,6 +74,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+                kunde.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(kunde.Password, "")
                 db.kunde.Add(kunde);
                 db.SaveChanges();
                 return RedirectToAction("Index");
