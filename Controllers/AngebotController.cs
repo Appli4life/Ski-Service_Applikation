@@ -26,8 +26,12 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot/Details/5
         public ActionResult Details(int? id)
         {
-            Session.Timeout = 15;
-            Session
+            // Nur für Admins
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +47,13 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot/Create
         public ActionResult Create()
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             ViewBag.Kategorie_ID = new SelectList(db.kategorie, "Kategorie_ID", "Kategorie1");
             ViewBag.Marke_ID = new SelectList(db.marke, "Marke_ID", "Marke1");
             return View();
@@ -70,6 +81,13 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot/Edit/5
         public ActionResult Edit(int? id)
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -105,6 +123,13 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot/Delete/5
         public ActionResult Delete(int? id)
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

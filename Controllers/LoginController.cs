@@ -29,6 +29,7 @@ namespace Ski_Service_Applikation.Controllers
                         Session.Timeout = 10;
 
                         Session["Logged_in"] = true;
+                        Session["Stufe"] = "";
                         Session["Kunde_ID"] = k.Kunde_ID.ToString();
                         Session["Vorname"] = k.Vorname.ToString();
                         Session["Nachname"] = k.Nachname.ToString();

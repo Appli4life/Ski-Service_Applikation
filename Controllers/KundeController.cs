@@ -22,12 +22,25 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Kunde
         public ActionResult Index()
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
             return View(db.kunde.ToList());
         }
 
         // GET: Kunde/Details/5
         public ActionResult Details(int? id)
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +56,12 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Kunde/Create
         public ActionResult Create()
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
             return View();
         }
 
@@ -86,6 +105,13 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Kunde/Edit/5
         public ActionResult Edit(int? id)
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -117,6 +143,13 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Kunde/Delete/5
         public ActionResult Delete(int? id)
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"].ToString() == "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
