@@ -11,13 +11,12 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(kunde k)
+        public ActionResult Login()
         {
             if (ModelState.IsValid)
             {
@@ -36,23 +35,7 @@ namespace Ski_Service_Applikation.Controllers
                         Session["Telefon"] = obj.Telefon.ToString();
 
                         return Redirect("/Angebot");
-                    }
-                }
-            }
-            return View();
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(mitarbeiter m)
-        {
-            if (ModelState.IsValid)
-            {
-                using (var context = new ski_serviceEntities())
-                {
-                    var obj = context.mitarbeiter.Where(a => a.Email.Equals(m.Email) && a.Password.Equals(m.Password)).FirstOrDefault();
-                    if (obj != null)
-                    {
                         Session.Timeout = 10;
                         Session["Logged_in"] = true;
                         Session["Stufe"] = obj.berechtigungsstufe.ToString();
@@ -69,6 +52,5 @@ namespace Ski_Service_Applikation.Controllers
             }
             return View();
         }
-
     }
 }
