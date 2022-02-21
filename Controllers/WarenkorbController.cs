@@ -20,7 +20,14 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Warenkorb/Details
         public ActionResult Detail()
         {
-            if(Request.Cookies["Warenkorb"] != null)
+            Session.Timeout = 15;
+
+            if (Session["Logged_in"] == null)
+            {
+                return Redirect("/Login");
+            }
+
+            if (Request.Cookies["Warenkorb"] != null)
             {
                 HttpCookie cookie = Request.Cookies["Warenkorb"];
                 if (cookie["id"] != "")

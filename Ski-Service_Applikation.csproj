@@ -190,7 +190,6 @@
       <DependentUpon>Skie_Service_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AngebotController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KundeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\WarenkorbController.cs" />
@@ -285,9 +284,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <EntityDeploy Include="Skie_Service_Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Skie_Service_Model.Designer.cs</LastGenOutput>

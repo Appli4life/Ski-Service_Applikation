@@ -18,7 +18,6 @@ namespace Ski_Service_Applikation.Controllers
         public ActionResult Index()
         {
             Session.Timeout = 15;
-            Session["Logged_in"] = true;
 
             var angebot = db.angebot.Include(a => a.kategorie).Include(a => a.marke);
             return View(angebot.ToList());
@@ -27,6 +26,8 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot/Details/5
         public ActionResult Details(int? id)
         {
+            Session.Timeout = 15;
+            Session
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
