@@ -20,12 +20,11 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Warenkorb/Details
         public ActionResult Detail()
         {
-            if(Response.Cookies["Warenkorb"] != null)
+            if(Request.Cookies["Warenkorb"] != null)
             {
                 HttpCookie cookie = Request.Cookies["Warenkorb"];
                 if (cookie["id"] != "")
                 {
-                    throw new Exception();
                     angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
                     return View(a);
                 }
