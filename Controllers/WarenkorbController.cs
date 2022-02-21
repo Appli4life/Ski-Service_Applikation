@@ -23,8 +23,7 @@ namespace Ski_Service_Applikation.Controllers
             if(Response.Cookies["Warenkorb"] != null)
             {
                 HttpCookie cookie = Request.Cookies["Warenkorb"];
-                angebot a = db.angebot.Find(cookie.Value.ToString());
-                throw new Exception(a.Angebot_ID.ToString());
+                angebot a = db.angebot.Find(Convert.ToInt32(cookie.Value));
                 return View(a);
             }
             return View();
@@ -55,9 +54,10 @@ namespace Ski_Service_Applikation.Controllers
                 if (angebot == null)
                     return HttpNotFound();
 
-                Response.Cookies["Warenkorb"].Value = angebot.Angebot_ID.ToString();
-                Response.Cookies["Warenkorb"].Expires = DateTime.Today.AddHours(10);
-
+                HttpCookie Warenkorb = new HttpCookie("Warenkorb");
+                Warenkorb.Value = angebot.Angebot_ID.ToString();
+                Warenkorb.Expires.Add(new TimeSpan(48, 0, 0));
+                Response.Cookies.Add(Warenkorb);
             }
 
             return Redirect("/Warenkorb");
