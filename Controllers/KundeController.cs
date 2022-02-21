@@ -49,6 +49,25 @@ namespace Ski_Service_Applikation.Controllers
         public ActionResult Create([Bind(Include = "Kunde_ID,Vorname,Nachname,Telefon,Email,Password")] kunde kunde)
         {
             if (ModelState.IsValid)
+            { 
+                db.kunde.Add(kunde);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(kunde);
+        }
+
+        public ActionResult Registrieren()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registrieren([Bind(Include = "Kunde_ID,Vorname,Nachname,Telefon,Email,Password")] kunde kunde)
+        {
+            if (ModelState.IsValid)
             {
                 db.kunde.Add(kunde);
                 db.SaveChanges();

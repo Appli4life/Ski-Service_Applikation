@@ -19,11 +19,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
             Session["Logged_in"] = true;
-            HttpCookie cookie = Request.Cookies["Warenkorb"];
-            if (cookie != null)
-            {
-                throw new Exception(cookie.Value.ToString());
-            }
+
             var angebot = db.angebot.Include(a => a.kategorie).Include(a => a.marke);
             return View(angebot.ToList());
         }
@@ -50,7 +46,7 @@ namespace Ski_Service_Applikation.Controllers
 
             }
 
-            return RedirectToAction("Index");
+            return Redirect("/Warenkorb");
         }
 
         // GET: Angebot/Details/5

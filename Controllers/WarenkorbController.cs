@@ -14,16 +14,16 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Warenkorb
         public ActionResult Index()
         {
-            RedirectToAction("Details");
-            return View();
+            return RedirectToAction("Detail");
         }
 
         // GET: Warenkorb/Details
-        public ActionResult Details()
+        public ActionResult Detail()
         {
             if(Response.Cookies["Warenkorb"] != null)
             {
-                angebot a = db.angebot.Find(Response.Cookies["Warenkorb"]["id"]);
+                HttpCookie cookie = Request.Cookies["Warenkorb"];
+                angebot a = db.angebot.Find(cookie["id"]);
                 return View(a);
             }
             return View();
@@ -32,8 +32,8 @@ namespace Ski_Service_Applikation.Controllers
         public ActionResult Delete()
         {
             Response.Cookies.Remove("Warenkorb");
-            RedirectToAction("Details");
-            return View();
+            
+            return RedirectToAction("Detail");
         }
     }
 }
