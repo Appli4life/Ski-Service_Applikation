@@ -23,8 +23,11 @@ namespace Ski_Service_Applikation.Controllers
             if(Response.Cookies["Warenkorb"] != null)
             {
                 HttpCookie cookie = Request.Cookies["Warenkorb"];
-                angebot a = db.angebot.Find(Convert.ToInt32(cookie.Value));
-                return View(a);
+                if (cookie.Value != "")
+                {
+                    angebot a = db.angebot.Find(Convert.ToInt32(cookie.Value));
+                    return View(a);
+                }
             }
             return View();
         }
