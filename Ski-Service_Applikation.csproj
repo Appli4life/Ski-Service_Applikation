@@ -190,7 +190,6 @@
       <DependentUpon>Skie_Service_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AngebotController.cs" />
-    <Compile Include="Controllers\BCryptHasherController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KundeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

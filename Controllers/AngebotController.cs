@@ -24,31 +24,6 @@ namespace Ski_Service_Applikation.Controllers
             return View(angebot.ToList());
         }
 
-        // Angebot Hinuzufügen
-        public ActionResult Add(int? id)
-        {
-            Session.Timeout = 15;
-            
-            if (Session["Logged_in"] == null)
-            {
-                return Redirect("/Login");
-            }
-
-            if (ModelState.IsValid)
-            {
-                angebot angebot = db.angebot.Find(id);
-
-                if (angebot == null)
-                    return HttpNotFound();
-
-                Response.Cookies["Warenkorb"].Value = angebot.Angebot_ID.ToString();
-                Response.Cookies["Warenkorb"].Expires = DateTime.Today.AddHours(10);
-
-            }
-
-            return Redirect("/Warenkorb");
-        }
-
         // GET: Angebot/Details/5
         public ActionResult Details(int? id)
         {
