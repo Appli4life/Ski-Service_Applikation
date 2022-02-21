@@ -22,36 +22,39 @@ namespace Ski_Service_Applikation.Controllers
             {
                 using (var context = new ski_serviceEntities())
                 {
-                    var obj = context.kunde.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault()
-                        ?? context.mitarbeiter.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault();
+                    kunde k = context.kunde.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault();
 
-
-                    if (obj is kunde)
+                    if (k != null)
                     {
                         Session.Timeout = 10;
 
                         Session["Logged_in"] = true;
-                        Session["Kunde_ID"] = obj.Kunde_ID.ToString();
-                        Session["Vorname"] = obj.Vorname.ToString();
-                        Session["Nachname"] = obj.Nachname.ToString();
-                        Session["Email"] = obj.Email.ToString();
-                        Session["Telefon"] = obj.Telefon.ToString();
+                        Session["Kunde_ID"] = k.Kunde_ID.ToString();
+                        Session["Vorname"] = k.Vorname.ToString();
+                        Session["Nachname"] = k.Nachname.ToString();
+                        Session["Email"] = k.Email.ToString();
+                        Session["Telefon"] = k.Telefon.ToString();
 
                         return Redirect("/Angebot");
                     }
-                    else if(obj is mitarbeiter)
+                    else
                     {
-                        Session.Timeout = 10;
-                        Session["Logged_in"] = true;
-                        Session["Stufe"] = obj.berechtigungsstufe.ToString();
-                        Session["Kunde_ID"] = obj.Mitarbeiter_ID.ToString();
-                        Session["Username"] = obj.username.ToString();
-                        Session["Vorname"] = obj.Vorname.ToString();
-                        Session["Nachname"] = obj.Nachname.ToString();
-                        Session["Email"] = obj.Email.ToString();
-                        Session["Telefon"] = obj.Telefon.ToString();
+                        mitarbeiter m = context.mitarbeiter.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault();
 
-                        return Redirect("/Miete");
+                        if (m != null)
+                        {
+                            Session.Timeout = 10;
+                            Session["Logged_in"] = true;
+                            Session["Stufe"] = m.berechtigungsstufe.ToString();
+                            Session["Kunde_ID"] = m.Mitarbeiter_ID.ToString();
+                            Session["Username"] = m.username.ToString();
+                            Session["Vorname"] = m.Vorname.ToString();
+                            Session["Nachname"] = m.Nachname.ToString();
+                            Session["Email"] = m.Email.ToString();
+                            Session["Telefon"] = m.Telefon.ToString();
+
+                            return Redirect("/Miete");
+                        }
                     }
 
 

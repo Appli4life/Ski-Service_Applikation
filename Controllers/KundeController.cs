@@ -74,8 +74,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                kunde.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(kunde.Password, "")
+                BCryptHasher hasher = new BCryptHasher();
                 db.kunde.Add(kunde);
                 db.SaveChanges();
                 return RedirectToAction("Index");
