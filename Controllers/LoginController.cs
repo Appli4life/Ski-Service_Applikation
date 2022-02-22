@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ski_Service_Applikation.Core;
 
 namespace Ski_Service_Applikation.Controllers
 {
@@ -22,7 +23,10 @@ namespace Ski_Service_Applikation.Controllers
             {
                 using (var context = new ski_serviceEntities())
                 {
-                    kunde k = context.kunde.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault();
+                    string email = Request.Form["Email"];
+                    string passwort = Passwort_Hash.VerifyPassword(Request.Form["Passwort"]);
+
+                    kunde k = context.kunde.Where(a => a.Email.Equals(email) && a.Password.Equals(passwort)).FirstOrDefault();
 
                     if (k != null)
                     {
@@ -40,7 +44,7 @@ namespace Ski_Service_Applikation.Controllers
                     }
                     else
                     {
-                        mitarbeiter m = context.mitarbeiter.Where(a => a.Email.Equals(Request.Form["Passwort"]) && a.Password.Equals(Request.Form["Passwort"])).FirstOrDefault();
+                        mitarbeiter m = context.mitarbeiter.Where(a => a.Email.Equals(email) && a.Password.Equals(passwort)).FirstOrDefault();
 
                         if (m != null)
                         {
@@ -61,7 +65,7 @@ namespace Ski_Service_Applikation.Controllers
 
                 }
             }
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

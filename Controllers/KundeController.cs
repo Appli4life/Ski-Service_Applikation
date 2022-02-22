@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Org.BouncyCastle.Crypto.Generators;
 using Ski_Service_Applikation;
+using Ski_Service_Applikation.Core;
 
 namespace Ski_Service_Applikation.Controllers
 {
@@ -24,7 +25,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"].ToString() == "Admin")
+            if (Session["Stufe"] != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -36,7 +37,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"].ToString() == "Admin")
+            if (Session["Stufe"] != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -58,7 +59,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"].ToString() == "Admin")
+            if (Session["Stufe"] != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -73,7 +74,8 @@ namespace Ski_Service_Applikation.Controllers
         public ActionResult Create([Bind(Include = "Kunde_ID,Vorname,Nachname,Telefon,Email,Password")] kunde kunde)
         {
             if (ModelState.IsValid)
-            { 
+            {
+                kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
                 db.kunde.Add(kunde);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -93,10 +95,10 @@ namespace Ski_Service_Applikation.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
                 db.kunde.Add(kunde);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect("/Angebot");
             }
 
             return View(kunde);
@@ -107,7 +109,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"].ToString() == "Admin")
+            if (Session["Stufe"]!= "Admin")
             {
                 return Redirect("/Login");
             }
@@ -145,7 +147,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"].ToString() == "Admin")
+            if (Session["Stufe"] != "Admin")
             {
                 return Redirect("/Login");
             }

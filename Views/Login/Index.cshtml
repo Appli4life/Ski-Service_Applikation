@@ -6,4 +6,13 @@
 
 <h2>Login</h2>
 
-<!-- Formular fürs ilogge mit POST date (email und passwort) Action = Login-->
+<form method="post" action="/Login/Login">
+    @Html.AntiForgeryToken()
+    <label for="email">Email</label>
+    <input type="text" id="email" name="Email" />
+
+    <label for="passwort">Passwort</label>
+    <input type="text" id="paswort" name="Passwort" />
+
+    <button type="submit">Submit</button>
+</form>

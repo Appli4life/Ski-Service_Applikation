@@ -4,30 +4,37 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using Ski_Service_Applikation;
+using Ski_Service_Applikation.Core;
 
 namespace Ski_Service_Applikation.Controllers
 {
-    public class AngebotController : Controller
+    public class MitarbeiterController : Controller
     {
         private ski_serviceEntities db = new ski_serviceEntities();
 
-        // GET: Angebot
+        // GET: Mitarbeiter
         public ActionResult Index()
         {
-            
             Session.Timeout = 15;
 
-            var angebot = db.angebot.Include(a => a.kategorie).Include(a => a.marke);
-            return View(angebot.ToList());
+            if (Session["Stufe"] != "Admin")
+            {
+                return Redirect("/Login");
+            }
+
+            var mitarbeiter = db.mitarbeiter.Include(m => m.berechtigungsstufe);
+            return View(mitarbeiter.ToList());
         }
 
-        // GET: Angebot/Details/5
+        // GET: Mitarbeiter/Details/5
         public ActionResult Details(int? id)
         {
-            // Nur für Admins
+            Session.Timeout = 15;
+
             if (Session["Stufe"] != "Admin")
             {
                 return Redirect("/Login");
@@ -37,15 +44,16 @@ namespace Ski_Service_Applikation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            angebot angebot = db.angebot.Find(id);
-            if (angebot == null)
+
+            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+            if (mitarbeiter == null)
             {
                 return HttpNotFound();
             }
-            return View(angebot);
+            return View(mitarbeiter);
         }
 
-        // GET: Angebot/Create
+        // GET: Mitarbeiter/Create
         public ActionResult Create()
         {
             Session.Timeout = 15;
@@ -55,31 +63,30 @@ namespace Ski_Service_Applikation.Controllers
                 return Redirect("/Login");
             }
 
-            ViewBag.Kategorie_ID = new SelectList(db.kategorie, "Kategorie_ID", "Kategorie1");
-            ViewBag.Marke_ID = new SelectList(db.marke, "Marke_ID", "Marke1");
+            ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1");
             return View();
         }
 
-        // POST: Angebot/Create
+        // POST: Mitarbeiter/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Angebot_ID,Preis_pro_Tag,Kategorie_ID,Marke_ID")] angebot angebot)
+        public ActionResult Create([Bind(Include = "Mitarbeiter_ID,username,Vorname,Nachname,Email,Telefon,Password,Berechtigungsstufe_ID")] mitarbeiter mitarbeiter)
         {
             if (ModelState.IsValid)
             {
-                db.angebot.Add(angebot);
+                mitarbeiter.Password = Passwort_Hash.ComputeHash(mitarbeiter.Password, new MD5CryptoServiceProvider());
+                db.mitarbeiter.Add(mitarbeiter);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Kategorie_ID = new SelectList(db.kategorie, "Kategorie_ID", "Kategorie1", angebot.Kategorie_ID);
-            ViewBag.Marke_ID = new SelectList(db.marke, "Marke_ID", "Marke1", angebot.Marke_ID);
-            return View(angebot);
+            ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
+            return View(mitarbeiter);
         }
 
-        // GET: Angebot/Edit/5
+        // GET: Mitarbeiter/Edit/5
         public ActionResult Edit(int? id)
         {
             Session.Timeout = 15;
@@ -93,35 +100,33 @@ namespace Ski_Service_Applikation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            angebot angebot = db.angebot.Find(id);
-            if (angebot == null)
+            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+            if (mitarbeiter == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Kategorie_ID = new SelectList(db.kategorie, "Kategorie_ID", "Kategorie1", angebot.Kategorie_ID);
-            ViewBag.Marke_ID = new SelectList(db.marke, "Marke_ID", "Marke1", angebot.Marke_ID);
-            return View(angebot);
+            ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
+            return View(mitarbeiter);
         }
 
-        // POST: Angebot/Edit/5
+        // POST: Mitarbeiter/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Angebot_ID,Preis_pro_Tag,Kategorie_ID,Marke_ID")] angebot angebot)
+        public ActionResult Edit([Bind(Include = "Mitarbeiter_ID,username,Vorname,Nachname,Email,Telefon,Password,Berechtigungsstufe_ID")] mitarbeiter mitarbeiter)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(angebot).State = EntityState.Modified;
+                db.Entry(mitarbeiter).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Kategorie_ID = new SelectList(db.kategorie, "Kategorie_ID", "Kategorie1", angebot.Kategorie_ID);
-            ViewBag.Marke_ID = new SelectList(db.marke, "Marke_ID", "Marke1", angebot.Marke_ID);
-            return View(angebot);
+            ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
+            return View(mitarbeiter);
         }
 
-        // GET: Angebot/Delete/5
+        // GET: Mitarbeiter/Delete/5
         public ActionResult Delete(int? id)
         {
             Session.Timeout = 15;
@@ -135,21 +140,21 @@ namespace Ski_Service_Applikation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            angebot angebot = db.angebot.Find(id);
-            if (angebot == null)
+            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+            if (mitarbeiter == null)
             {
                 return HttpNotFound();
             }
-            return View(angebot);
+            return View(mitarbeiter);
         }
 
-        // POST: Angebot/Delete/5
+        // POST: Mitarbeiter/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            angebot angebot = db.angebot.Find(id);
-            db.angebot.Remove(angebot);
+            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+            db.mitarbeiter.Remove(mitarbeiter);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
