@@ -314,6 +314,7 @@
     <Content Include="Views\Mitarbeiter\Details.cshtml" />
     <Content Include="Views\Mitarbeiter\Edit.cshtml" />
     <Content Include="Views\Mitarbeiter\Index.cshtml" />
+    <Content Include="Views\Shared\Kunde_in.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
