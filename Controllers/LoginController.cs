@@ -34,7 +34,7 @@ namespace Ski_Service_Applikation.Controllers
 
                         Session["Logged_in"] = true;
                         Session["Stufe"] = "";
-                        Session["Kunde_ID"] = k.Kunde_ID.ToString();
+                        Session["User_id"] = k.Kunde_ID.ToString();
                         Session["Vorname"] = k.Vorname.ToString();
                         Session["Nachname"] = k.Nachname.ToString();
                         Session["Email"] = k.Email.ToString();
@@ -45,19 +45,18 @@ namespace Ski_Service_Applikation.Controllers
                     else
                     {
                         mitarbeiter m = context.mitarbeiter.Where(a => a.Email.Equals(email) && a.Password.Equals(passwort)).FirstOrDefault();
-
+                      
                         if (m != null)
                         {
                             Session.Timeout = 10;
                             Session["Logged_in"] = true;
-                            Session["Stufe"] = m.berechtigungsstufe.ToString();
-                            Session["Kunde_ID"] = m.Mitarbeiter_ID.ToString();
+                            Session["Stufe"] = m.berechtigungsstufe.Berechtigungsstufe1.ToString();
+                            Session["User_id"] = m.Mitarbeiter_ID.ToString();
                             Session["Username"] = m.username.ToString();
                             Session["Vorname"] = m.Vorname.ToString();
                             Session["Nachname"] = m.Nachname.ToString();
                             Session["Email"] = m.Email.ToString();
                             Session["Telefon"] = m.Telefon.ToString();
-
                             return Redirect("/Miete");
                         }
                     }
