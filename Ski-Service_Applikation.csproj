@@ -315,6 +315,7 @@
     <Content Include="Views\Mitarbeiter\Edit.cshtml" />
     <Content Include="Views\Mitarbeiter\Index.cshtml" />
     <Content Include="Views\Shared\Kunde_in.cshtml" />
+    <Content Include="Views\Shared\Email_duplicate_error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

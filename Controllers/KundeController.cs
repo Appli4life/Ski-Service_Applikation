@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -93,15 +94,21 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Registrieren([Bind(Include = "Kunde_ID,Vorname,Nachname,Telefon,Email,Password")] kunde kunde)
         {
-            if (ModelState.IsValid)
+            try
             {
-                kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
-                db.kunde.Add(kunde);
-                db.SaveChanges();
-                return Redirect("/Angebot");
+                if (ModelState.IsValid)
+                {
+                    kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
+                    db.kunde.Add(kunde);
+                    db.SaveChanges();
+                    return Redirect("/Angebot");
+                }
+                return View(kunde);
             }
-
-            return View(kunde);
+            catch (DbUpdateException)
+            {
+                return View("Email_duplicate_error");
+            }
         }
 
         // GET: Kunde/Edit/5
