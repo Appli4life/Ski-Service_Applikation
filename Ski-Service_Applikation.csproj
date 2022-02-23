@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AngebotController.cs" />
     <Compile Include="Controllers\KundeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MieteController.cs" />
     <Compile Include="Controllers\MitarbeiterController.cs" />
     <Compile Include="Controllers\WarenkorbController.cs" />
     <Compile Include="Core\Passwort_Hash.cs" />
@@ -316,6 +317,11 @@
     <Content Include="Views\Mitarbeiter\Index.cshtml" />
     <Content Include="Views\Shared\Kunde_in.cshtml" />
     <Content Include="Views\Shared\Email_duplicate_error.cshtml" />
+    <Content Include="Views\Miete\Create.cshtml" />
+    <Content Include="Views\Miete\Delete.cshtml" />
+    <Content Include="Views\Miete\Details.cshtml" />
+    <Content Include="Views\Miete\Edit.cshtml" />
+    <Content Include="Views\Miete\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
