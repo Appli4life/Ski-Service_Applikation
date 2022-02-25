@@ -3,3 +3,44 @@
     opacity: 1;
     background: linear-gradient(135deg, #d8d8d855 25%, transparent 25%) -17px 0/ 34px 34px, linear-gradient(225deg, #d8d8d8 25%, transparent 25%) -17px 0/ 34px 34px, linear-gradient(315deg, #d8d8d855 25%, transparent 25%) 0px 0/ 34px 34px, linear-gradient(45deg, #d8d8d8 25%, #ffffff 25%) 0px 0/ 34px 34px;
 }
+
+.add {
+    background-image: url(../Images/add.png);
+    display: inline-block;
+    margin: 0 auto;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+}
+
+.view {
+    background-image: url(../Images/view.png);
+    display: inline-block;
+    margin: 0 auto;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+}
+
+.delete {
+    background-image: url(../Images/delete.png);
+    display: inline-block;
+    margin: 0 auto;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+}
+
+.edit {
+    background-image: url(../Images/edit.png);
+    display: inline-block;
+    margin: 0 auto;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+}
+
