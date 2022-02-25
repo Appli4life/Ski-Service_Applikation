@@ -1,47 +1,53 @@
 ﻿@model IEnumerable<Ski_Service_Applikation.angebot>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Angebote";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container bg-dark text-white my-5 p-2">
+    <h2>Angebote</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Preis_pro_Tag)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.kategorie.Kategorie1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.marke.Marke1)
-        </th>
-        <th></th>
-    </tr>
+    <p>
+        Hier finden Sie unsere Angebote
 
-@foreach (var item in Model) {
-    // Cards mit Hinzufüg Button
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preis_pro_Tag)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.kategorie.Kategorie1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.marke.Marke1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Angebot_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Angebot_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Angebot_ID })|
-            @Html.ActionLink("Add", "Add","Warenkorb", new { id = item.Angebot_ID }, null)
-        </td>
-    </tr>
-}
-</table>
+        @*@Html.ActionLink("Create New", "Create")*@
+    </p>
+    <table class="table table-striped table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Preis_pro_Tag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.kategorie.Kategorie1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.marke.Marke1)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            // Cards mit Hinzufüg Button
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preis_pro_Tag)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.kategorie.Kategorie1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marke.Marke1)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Angebot_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Angebot_ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Angebot_ID })|
+                    @Html.ActionLink("Add", "Add", "Warenkorb", new { id = item.Angebot_ID }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
