@@ -5,78 +5,81 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Miet_Datum)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rueckgabe_Datum)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Menge)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Koerpergroesse)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.altersgruppe.Altersgruppe1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.angebot.Angebot_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.geschlecht.Geschlecht1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.kunde.Vorname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status.Status1)
-        </th>
-        <th></th>
-    </tr>
+<div class="container bg-darl text-white my-5 p-2">
+    <h2>Index</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Miet_Datum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rueckgabe_Datum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Menge)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Koerpergroesse)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.altersgruppe.Altersgruppe1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.angebot.Angebot_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.geschlecht.Geschlecht1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.kunde.Vorname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status.Status1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Miete_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Miete_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Miete_ID })
-        </td>
-    </tr>
-}
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-striped table-dark">
+        <tr>
+            <th>
+                Miet Datum
+            </th>
+            <th>
+                Rueckgabe Datum
+            </th>
+            <th>
+                Menge
+            </th>
+            <th>
+                Koerpergroesse
+            </th>
+            <th>
+                Altersgruppe
+            </th>
+            <th>
+                Angebots ID
+            </th>
+            <th>
+                Geschlecht
+            </th>
+            <th>
+                Kunden Vorname
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
 
-</table>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Miet_Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rueckgabe_Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Menge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Koerpergroesse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.altersgruppe.Altersgruppe1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.angebot.Angebot_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.geschlecht.Geschlecht1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.kunde.Vorname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status.Status1)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Miete_ID }, new { @class = "edit" }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Miete_ID }, new { @class = "view" }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Miete_ID }, new { @class = "delete" })
+            </td>
+        </tr>
+    }
+
+    </table>
+
+</div>
