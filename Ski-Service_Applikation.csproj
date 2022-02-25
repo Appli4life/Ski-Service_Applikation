@@ -254,10 +254,11 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\add.png" />
-    <Content Include="Images\Category\All-Mountain-Carving.jpg" />
+    <Content Include="Images\Category\All-Mountain-Carvin.jpg" />
     <Content Include="Images\Category\Allround-Skis.jpg" />
     <Content Include="Images\Category\Freeride-Skis.jpg" />
     <Content Include="Images\Category\Goofy-Snowboard.jpg" />
+    <Content Include="Images\Category\noprev.jpg" />
     <Content Include="Images\Category\Regular-Snowboard.jpg" />
     <Content Include="Images\Category\Slalom-Skis.jpg" />
     <Content Include="Images\delete.png" />
