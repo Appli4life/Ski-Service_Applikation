@@ -64,7 +64,7 @@ namespace Ski_Service_Applikation.Controllers
             ViewBag.Altersgruppe_ID = new SelectList(db.altersgruppe, "Altersgruppe_ID", "Altersgruppe1");
             ViewBag.Angebot_ID = new SelectList(db.angebot, "Angebot_ID", "Angebot_ID");
             ViewBag.Geschlecht_ID = new SelectList(db.geschlecht, "Geschlecht_ID", "Geschlecht1");
-            ViewBag.Kunde_ID = new SelectList(db.kunde, "Kunde_ID", "Vorname");
+            ViewBag.Kunde_ID = new SelectList(db.kunde, "Kunde_ID", "Email");
             ViewBag.Status_ID = new SelectList(db.status, "Status_ID", "Status1");
             return View();
         }

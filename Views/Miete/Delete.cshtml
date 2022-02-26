@@ -45,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.altersgruppe.Altersgruppe1)
+            Altersgruppe
         </dt>
 
         <dd>
@@ -53,15 +53,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.angebot.Angebot_ID)
+            Angebot
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.angebot.Angebot_ID)
+            @Html.ActionLink("Details", "Details","Angebot", new { id = Model.Angebot_ID }, null)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.geschlecht.Geschlecht1)
+            Geschlecht
         </dt>
 
         <dd>
@@ -69,15 +69,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.kunde.Vorname)
+            Kunde
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.kunde.Vorname)
+            @Html.ActionLink("Details", "Details","Kunde", new { id = Model.Kunde_ID }, null)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.status.Status1)
+            Status
         </dt>
 
         <dd>

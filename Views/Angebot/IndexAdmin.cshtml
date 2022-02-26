@@ -15,6 +15,9 @@
             <table class="table table-striped table-dark">
                 <tr>
                     <th>
+                        Angebot_ID
+                    </th>
+                    <th>
                         Preis pro Tag
                     </th>
                     <th>
@@ -30,22 +33,25 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Preis_pro_Tag)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.kategorie.Kategorie1)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.marke.Marke1)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Angebot_ID }, new { @class = "edit" }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Angebot_ID }, new { @class = "view" }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Angebot_ID }, new { @class = "delete" })|
-                        </td>
-                    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Angebot_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preis_pro_Tag)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.kategorie.Kategorie1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.marke.Marke1)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Angebot_ID }, new { @class = "edit" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Angebot_ID }, new { @class = "view" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Angebot_ID }, new { @class = "delete" })
+                </td>
+            </tr>
                 }
             </table>
             </div>

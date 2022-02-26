@@ -38,8 +38,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+            // Nur Mitarbeiter
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() == "")
             {
                 return Redirect("/Login");
             }
