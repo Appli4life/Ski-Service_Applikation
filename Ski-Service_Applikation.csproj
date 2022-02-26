@@ -326,7 +326,6 @@
     <Content Include="Views\Mitarbeiter\Details.cshtml" />
     <Content Include="Views\Mitarbeiter\Edit.cshtml" />
     <Content Include="Views\Mitarbeiter\Index.cshtml" />
-    <Content Include="Views\Shared\Kunde_in.cshtml" />
     <Content Include="Views\Shared\Email_duplicate_error.cshtml" />
     <Content Include="Views\Miete\Create.cshtml" />
     <Content Include="Views\Miete\Delete.cshtml" />
