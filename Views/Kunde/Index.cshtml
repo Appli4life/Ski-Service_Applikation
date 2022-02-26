@@ -26,9 +26,6 @@
                 Email
             </th>
             <th>
-                Passwort
-            </th>
-            <th>
                 Optionen
             </th>
         </tr>
@@ -46,9 +43,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Kunde_ID }, new { @class = "edit" }) |

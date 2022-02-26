@@ -145,6 +145,7 @@ namespace Ski_Service_Applikation.Controllers
         {
             if (ModelState.IsValid)
             {
+                kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
                 db.Entry(kunde).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

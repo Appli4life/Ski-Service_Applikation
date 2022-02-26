@@ -68,11 +68,11 @@
         </dd>
 
         <dt>
-            Kunde
+            Kunde Email/Link
         </dt>
 
         <dd>
-            @Html.ActionLink("Details", "Details", "Kunde", new { id = Model.Kunde_ID }, null)
+            @Html.ActionLink(Model.kunde.Email, "Details", "Kunde", new { id = Model.Kunde_ID }, null)
         </dd>
 
         <dt>

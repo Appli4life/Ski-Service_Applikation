@@ -30,16 +30,19 @@
                 Altersgruppe
             </th>
             <th>
-                Angebot ID
+                Angebot
             </th>
             <th>
                 Geschlecht
             </th>
             <th>
-                Kunden Email
+                Kunden Email/Link
             </th>
             <th>
                 Status
+            </th>
+            <th>
+                Optionen
             </th>
         </tr>
 
@@ -61,13 +64,13 @@
                 @Html.DisplayFor(modelItem => item.altersgruppe.Altersgruppe1)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.angebot.Angebot_ID)
+                @Html.ActionLink("Details", "Details", "Angebot", new { id = item.Angebot_ID }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.geschlecht.Geschlecht1)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.kunde.Vorname)
+                @Html.ActionLink(item.kunde.Email, "Details", "Kunde", new { id = item.Kunde_ID }, null)         
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.status.Status1)
