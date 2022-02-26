@@ -61,11 +61,16 @@ namespace Ski_Service_Applikation.Controllers
                             return Redirect("/Miete");
                         }
                     }
-
-
                 }
             }
             return RedirectToAction("Index");
         }
+        public ActionResult Logout()
+        {
+            Session["Logged_in"] = null;
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
