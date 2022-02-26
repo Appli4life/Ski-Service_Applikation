@@ -21,7 +21,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -35,7 +36,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -58,7 +60,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -91,7 +94,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -131,7 +135,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }

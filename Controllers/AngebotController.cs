@@ -21,7 +21,8 @@ namespace Ski_Service_Applikation.Controllers
 
             var angebot = db.angebot.Include(a => a.kategorie).Include(a => a.marke);
 
-            if (Session["Stufe"] == "Admin")
+            // Admin Ansicht
+            if (Session["Logged_in"] != null && Session["Stufe"].ToString() == "Admin")
             {
                 return View(model: angebot.ToList(), viewName: "IndexAdmin");
             }
@@ -31,8 +32,8 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot/Details/5
         public ActionResult Details(int? id)
         {
-            // Nur für Admins
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -54,7 +55,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -88,7 +90,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
@@ -130,7 +133,8 @@ namespace Ski_Service_Applikation.Controllers
         {
             Session.Timeout = 15;
 
-            if (Session["Stufe"] != "Admin")
+            // Nur Admins
+            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
             {
                 return Redirect("/Login");
             }
