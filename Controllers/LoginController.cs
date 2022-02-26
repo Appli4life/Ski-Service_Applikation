@@ -12,6 +12,7 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            Session.Timeout = 10;
             return View();
         }
 

@@ -17,6 +17,13 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Miete
         public ActionResult Index()
         {
+            Session.Timeout = 15;
+
+            if (Session["Stufe"] != "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             var miete = db.miete.Include(m => m.altersgruppe).Include(m => m.angebot).Include(m => m.geschlecht).Include(m => m.kunde).Include(m => m.status);
             return View(miete.ToList());
         }
@@ -24,6 +31,12 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Miete/Details/5
         public ActionResult Details(int? id)
         {
+            Session.Timeout = 15;
+            if (Session["Stufe"] != "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +52,12 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Miete/Create
         public ActionResult Create()
         {
+            Session.Timeout = 15;
+            if (Session["Stufe"].ToString() != "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             ViewBag.Altersgruppe_ID = new SelectList(db.altersgruppe, "Altersgruppe_ID", "Altersgruppe1");
             ViewBag.Angebot_ID = new SelectList(db.angebot, "Angebot_ID", "Angebot_ID");
             ViewBag.Geschlecht_ID = new SelectList(db.geschlecht, "Geschlecht_ID", "Geschlecht1");
@@ -72,6 +91,12 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Miete/Edit/5
         public ActionResult Edit(int? id)
         {
+            Session.Timeout = 15;
+            if (Session["Stufe"] != "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -113,6 +138,12 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Miete/Delete/5
         public ActionResult Delete(int? id)
         {
+            Session.Timeout = 15;
+            if (Session["Stufe"] != "Admin")
+            {
+                return Redirect("/Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

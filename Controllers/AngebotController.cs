@@ -17,10 +17,14 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Angebot
         public ActionResult Index()
         {
-            
             Session.Timeout = 15;
 
             var angebot = db.angebot.Include(a => a.kategorie).Include(a => a.marke);
+
+            if (Session["Stufe"] == "Admin")
+            {
+                return View(model: angebot.ToList(), viewName: "IndexAdmin");
+            }
             return View(angebot.ToList());
         }
 
