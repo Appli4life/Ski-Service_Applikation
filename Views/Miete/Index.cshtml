@@ -49,10 +49,10 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Miet_Datum)
+                @item.Miet_Datum.ToString("d")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rueckgabe_Datum)
+                @item.Rueckgabe_Datum.ToString("d")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Menge)

@@ -3,14 +3,49 @@
 @{
     ViewBag.Title = "Confirmation";
     Layout = "~/Views/Shared/_Layout_k_in.cshtml";
+    string tage = Model.Rueckgabe_Datum.Subtract(Model.Miet_Datum).ToString("dd");
+    double preis_pro_stück = Convert.ToInt32(tage) * Model.angebot.Preis_pro_Tag * Model.altersgruppe.Preismultiplikator;
+    double Gesamtpreis = Model.Menge * preis_pro_stück;
 }
+<div class="container bg-dark text-white my-5 p-2">
+    <h2>Bestätigung</h2>
 
-<h2>Bestätigung</h2>
+    <h4>
+        Danke für Ihre Bestellung
+    </h4>
+
+    <p style="color:lightblue">
+        Ihre Auswahl:<br />
+        Marke: @Model.angebot.marke.Marke1<br />
+        Kategorie: @Model.angebot.kategorie.Kategorie1<br />
+        Preis Pro Stück für @tage Tage (@Model.altersgruppe.Altersgruppe1): @preis_pro_stück CHF<br />
+        Gesamtpreis: @Gesamtpreis CHF (@Model.Menge Menge * @preis_pro_stück)
+    </p>
+
+    <p style="color:lightcoral">
+        Ihre Daten:<br />
+        Name: @Session["Nachname"] @Session["Vorname"]<br />
+        Email: @Session["Email"]
+    </p>
+    <p style="color:lightcyan">
+        Ihre Angaben:<br />
+        Körpergrösse: @Model.Koerpergroesse<br />
+        Geschlecht: @Model.geschlecht.Geschlecht1<br />
+        Menge: @Model.Menge
+    </p>
+    <p style="color:lightgreen">
+        Daten:<br />
+        Von: @Model.Miet_Datum.ToString("d")<br />
+        Bis: @Model.Rueckgabe_Datum.ToString("d")<br />
+        Tage: @tage
+    </p>
 
 
+    <div>
+        @Html.ActionLink("Home", "Index", controllerName: "Angebot")
+    </div>
 
-<div>
-    @Html.ActionLink("Home", "Index",controllerName: "Angebot")
 </div>
+
 
 
