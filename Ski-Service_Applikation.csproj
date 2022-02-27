@@ -334,6 +334,7 @@
     <Content Include="Views\Miete\Index.cshtml" />
     <Content Include="Views\Angebot\IndexAdmin.cshtml" />
     <Content Include="Views\Shared\_Layout_in.cshtml" />
+    <Content Include="Views\Warenkorb\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

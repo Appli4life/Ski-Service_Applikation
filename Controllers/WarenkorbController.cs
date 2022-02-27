@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,6 +31,8 @@ namespace Ski_Service_Applikation.Controllers
                 if (cookie["id"] != "")
                 {
                     angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
+                    ViewBag.Altersgruppe_ID = new SelectList(db.altersgruppe, "Altersgruppe_ID", "Altersgruppe1");
+                    ViewBag.Geschlecht_ID = new SelectList(db.geschlecht, "Geschlecht_ID", "Geschlecht1");
                     return View(a);
                 }
             }
@@ -86,9 +86,26 @@ namespace Ski_Service_Applikation.Controllers
 
                 if(a != null)
                 {
+                    miete m = new miete()
+                    {
+                        Altersgruppe_ID = Convert.ToInt32(Request.Form["Altersgruppe_ID"]),
+                        angebot = a,
+                        Geschlecht_ID = Convert.ToInt32(Request.Form["Geschlecht_ID"]),
+                        Koerpergroesse = Convert.ToInt32(Request.Form["groesse"]),
+                        Kunde_ID = Convert.ToInt32(Session["User_id"]),
+                        Miet_Datum = Convert.ToDateTime(Request.Form["von"]),
+                        Rueckgabe_Datum = Convert.ToDateTime(Request.Form["bis"]),
+                        Status_ID = db.status.FirstOrDefault().Status_ID,
+                        Menge = Convert.ToInt32(Request.Form["menge"])
+                    };
 
+                    db.miete.Add(m);
+                    db.SaveChanges();
 
-                    return View();
+                    // PDF erstellen
+                    
+
+                    return View(m);
                 }
                 else
                 {

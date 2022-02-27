@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Warenkorb";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_in.cshtml";
 }
 
 <h2>Warenkorb</h2>
@@ -41,31 +41,56 @@
         </dl>
     </div>
 
+    <div class="form-group">
+        Altersgruppe
+        <div class="col-md-10">
+            @Html.DropDownList("Altersgruppe_ID", null, htmlAttributes: new { @class = "form-input" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Altersgruppe
+        <div class="col-md-10">
+            @Html.DropDownList("Geschlecht_ID", null, htmlAttributes: new { @class = "form-input" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <label for="groesse">Körpergrösse</label>
+            <br />
+            <input type="number" min="50" max="250" name="groesse" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <label for="menge">Menge</label>
+            <br />
+            <input type="number" min="1" max="5" name="menge" />
+        </div>
+    </div>
+
     <div class="form-horizontal">
         <div class="form-group row">
             <div class="col-md-10">
                 <label for="von">Miet Datum</label>
                 <br />
-                <input type="date" min="@DateTime.Now.ToString("yyy-mm-d") " max="@DateTime.Now.ToString("")" id="von" name="Von" />
+                <input type="date" min='@DateTime.Now.AddDays(1).ToString("yyy-MM-d")' max='@DateTime.Now.AddYears(1).ToString("yyy-MM-d")' id="von" name="Von" />
             </div>
         </div>
-        @DateTime.Now.ToString("yyy-mm-d")
-
 
         <div class="form-group row">
             <div class="col-md-10">
-                <label for="bis">Passwort</label>
+                <label for="bis">Rückgabe Datum</label>
                 <br />
-                <input type="date" id="bis" name="Bis" />
+                <input type="date" id="bis" name="Bis" min='@DateTime.Now.AddDays(2).ToString("yyy-MM-d")' max='@DateTime.Now.AddYears(2).ToString("yyy-MM-d")' />
             </div>
         </div>
-
-
-
         <br>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-warning">Abschliessen</button>
+                <button type="submit" class="btn btn-success">Abschliessen</button>
             </div>
         </div>
     </div>
