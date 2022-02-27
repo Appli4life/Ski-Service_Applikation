@@ -7,36 +7,70 @@
 
 <h2>Warenkorb</h2>
 
-<div>
-    <h4>Angebot</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Preis Pro Tag
-        </dt>
+<form method="post" action="/Warenkorb/Confirmation">
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.Preis_pro_Tag)
-        </dd>
+    <div>
+        <h4>Angebot</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Preis Pro Tag
+            </dt>
 
-        <dt>
-            Kategorie
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Preis_pro_Tag)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.kategorie.Kategorie1)
-        </dd>
+            <dt>
+                Kategorie
+            </dt>
 
-        <dt>
-            Marke
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.kategorie.Kategorie1)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.marke.Marke1)
-        </dd>
+            <dt>
+                Marke
+            </dt>
 
-    </dl>
-</div>
+            <dd>
+                @Html.DisplayFor(model => model.marke.Marke1)
+            </dd>
+
+        </dl>
+    </div>
+
+    <div class="form-horizontal">
+        <div class="form-group row">
+            <div class="col-md-10">
+                <label for="von">Miet Datum</label>
+                <br />
+                <input type="date" min="@DateTime.Now.ToString("yyy-mm-d") " max="@DateTime.Now.ToString("")" id="von" name="Von" />
+            </div>
+        </div>
+        @DateTime.Now.ToString("yyy-mm-d")
+
+
+        <div class="form-group row">
+            <div class="col-md-10">
+                <label for="bis">Passwort</label>
+                <br />
+                <input type="date" id="bis" name="Bis" />
+            </div>
+        </div>
+
+
+
+        <br>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-warning">Abschliessen</button>
+            </div>
+        </div>
+    </div>
+
+</form>
 <p>
     @Html.ActionLink("Delete", "Delete")
     @Html.ActionLink("Back to List", "Index", "Angebot")

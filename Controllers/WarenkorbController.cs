@@ -73,5 +73,29 @@ namespace Ski_Service_Applikation.Controllers
             return RedirectToAction("Detail");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Confirmation()
+        {
+            Session.Timeout = 15;
+
+            HttpCookie cookie = Request.Cookies["Warenkorb"];
+            if (cookie["id"] != "")
+            {
+                angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
+
+                if(a != null)
+                {
+
+
+                    return View();
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            return HttpNotFound();
+        }
     }
 }
