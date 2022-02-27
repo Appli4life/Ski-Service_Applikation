@@ -4,40 +4,41 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout_in.cshtml";
 }
+<div class="container bg-dark text-white my-5 p-2">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Angebot</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Preis pro Tag
+            </dt>
 
-<div>
-    <h4>Angebot</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Preis pro Tag
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Preis_pro_Tag)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Preis_pro_Tag)
-        </dd>
+            <dt>
+                Kategorie
+            </dt>
 
-        <dt>
-            Kategorie
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.kategorie.Kategorie1)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.kategorie.Kategorie1)
-        </dd>
+            <dt>
+                Marke
+            </dt>
 
-        <dt>
-            Marke
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.marke.Marke1)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.marke.Marke1)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Angebot_ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Angebot_ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
