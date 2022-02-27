@@ -2,7 +2,14 @@
 
 @{
     ViewBag.Title = "Angebote";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!ViewBag.log)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_k_in.cshtml";
+    }
 }
 
 <div class="container bg-dark text-white my-5 p-2">
@@ -11,10 +18,9 @@
     <p>
         Hier finden Sie unsere Angebote
 
-        @*@Html.ActionLink("Create New", "Create")*@
     </p>
     <div class="container row text-dark">
-
+        
 
         @foreach (var item in Model)
         {

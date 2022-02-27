@@ -26,6 +26,7 @@ namespace Ski_Service_Applikation.Controllers
             {
                 return View(model: angebot.ToList(), viewName: "IndexAdmin");
             }
+            ViewBag.log = Session["logged_in"] ?? false;
             return View(angebot.ToList());
         }
 
