@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -103,7 +106,24 @@ namespace Ski_Service_Applikation.Controllers
                     db.SaveChanges();
 
                     // PDF erstellen
-                    
+                    PdfDocument pdf = new PdfDocument();
+                    pdf.Info.Title = "Rechnung_" + DateTime.Now.ToString("f");
+
+                    // New Page
+                    PdfPage page = pdf.AddPage();
+
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                    XFont font = new XFont("Verdana", 20, XFontStyle.BoldItalic);
+
+                    gfx.DrawString("Hello, World!", font, XBrushes.Black,
+                    new XRect(0, 0, page.Width, page.Height),
+                    XStringFormats.Center);
+
+                    string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("f") + ".pdf";
+                    pdf.Save(filename);
+
+                    Response.Cookies.Remove("Warenkorb");
 
                     return View(m);
                 }
