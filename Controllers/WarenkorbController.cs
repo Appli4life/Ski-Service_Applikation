@@ -119,11 +119,10 @@ namespace Ski_Service_Applikation.Controllers
 
                     XFont font = new XFont("Verdana", 20, XFontStyle.BoldItalic);
 
-                    gfx.DrawString("Jet-Stream Service", font, XBrushes.Black,
-                    new XRect(0, 0, page.Width, page.Height),
-                    XStringFormats.TopCenter);
+                    gfx.DrawImage(XImage.FromFile(Server.MapPath("~/Images/logo-small.png")),20,20,250,140);
+                    gfx.DrawString("Jet-Stream Service", font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.TopCenter);
 
-                    string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("d") + ".pdf";
+                    string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("d")+"_"+ DateTime.Now.ToString("HH.mm")+ ".pdf";
                     pdf.Save(filename);
                     
 
