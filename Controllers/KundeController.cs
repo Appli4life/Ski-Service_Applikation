@@ -24,49 +24,75 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Kunde
         public ActionResult Index()
         {
-            Session.Timeout = 15;
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+            try
             {
-                return Redirect("/Login");
+                Session.Timeout = 15;
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
+                return View(db.kunde.ToList());
+
             }
-            return View(db.kunde.ToList());
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // GET: Kunde/Details/5
         public ActionResult Details(int? id)
         {
-            Session.Timeout = 15;
+            try
+            {
+                Session.Timeout = 15;
 
-            // Nur Mitarbeiter
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() == "")
-            {
-                return Redirect("/Login");
-            }
+                // Nur Mitarbeiter
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() == "")
+                {
+                    return Redirect("/Login");
+                }
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                kunde kunde = db.kunde.Find(id);
+
+                if (kunde == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(kunde);
+
             }
-            kunde kunde = db.kunde.Find(id);
-            if (kunde == null)
+            catch (Exception)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(kunde);
         }
 
         // GET: Kunde/Create
         public ActionResult Create()
         {
-            Session.Timeout = 15;
-
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+            try
             {
-                return Redirect("/Login");
+                Session.Timeout = 15;
+
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
+                return View();
+
             }
-            return View();
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // POST: Kunde/Create
@@ -76,15 +102,23 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Kunde_ID,Vorname,Nachname,Telefon,Email,Password")] kunde kunde)
         {
-            if (ModelState.IsValid)
+            try
             {
-                kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
-                db.kunde.Add(kunde);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
+                    db.kunde.Add(kunde);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(kunde);
+                return View(kunde);
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult Registrieren()
@@ -111,29 +145,40 @@ namespace Ski_Service_Applikation.Controllers
             {
                 return View("Email_duplicate_error");
             }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // GET: Kunde/Edit/5
         public ActionResult Edit(int? id)
         {
-            Session.Timeout = 15;
+            try
+            {
+                Session.Timeout = 15;
 
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
-            {
-                return Redirect("/Login");
-            }
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                kunde kunde = db.kunde.Find(id);
+                if (kunde == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(kunde);
             }
-            kunde kunde = db.kunde.Find(id);
-            if (kunde == null)
+            catch (Exception)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(kunde);
         }
 
         // POST: Kunde/Edit/5
@@ -143,37 +188,53 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Kunde_ID,Vorname,Nachname,Telefon,Email,Password")] kunde kunde)
         {
-            if (ModelState.IsValid)
+            try
             {
-                kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
-                db.Entry(kunde).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    kunde.Password = Passwort_Hash.ComputeHash(kunde.Password, new MD5CryptoServiceProvider());
+                    db.Entry(kunde).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(kunde);
+
             }
-            return View(kunde);
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // GET: Kunde/Delete/5
         public ActionResult Delete(int? id)
         {
-            Session.Timeout = 15;
+            try
+            {
+                Session.Timeout = 15;
 
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
-            {
-                return Redirect("/Login");
-            }
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                kunde kunde = db.kunde.Find(id);
+                if (kunde == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(kunde);
+
             }
-            kunde kunde = db.kunde.Find(id);
-            if (kunde == null)
+            catch (Exception)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(kunde);
         }
 
         // POST: Kunde/Delete/5
@@ -181,10 +242,17 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            kunde kunde = db.kunde.Find(id);
-            db.kunde.Remove(kunde);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                kunde kunde = db.kunde.Find(id);
+                db.kunde.Remove(kunde);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         protected override void Dispose(bool disposing)

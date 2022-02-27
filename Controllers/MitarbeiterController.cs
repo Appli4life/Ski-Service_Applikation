@@ -19,55 +19,79 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Mitarbeiter
         public ActionResult Index()
         {
-            Session.Timeout = 15;
-
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+            try
             {
-                return Redirect("/Login");
-            }
+                Session.Timeout = 15;
 
-            var mitarbeiter = db.mitarbeiter.Include(m => m.berechtigungsstufe);
-            return View(mitarbeiter.ToList());
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
+
+                var mitarbeiter = db.mitarbeiter.Include(m => m.berechtigungsstufe);
+                return View(mitarbeiter.ToList());
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // GET: Mitarbeiter/Details/5
         public ActionResult Details(int? id)
         {
-            Session.Timeout = 15;
-
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+            try
             {
-                return Redirect("/Login");
-            }
+                Session.Timeout = 15;
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
 
-            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
-            if (mitarbeiter == null)
-            {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+                if (mitarbeiter == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(mitarbeiter);
+
             }
-            return View(mitarbeiter);
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // GET: Mitarbeiter/Create
         public ActionResult Create()
         {
-            Session.Timeout = 15;
-
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+            try
             {
-                return Redirect("/Login");
-            }
+                Session.Timeout = 15;
 
-            ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1");
-            return View();
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
+
+                ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1");
+                return View();
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // POST: Mitarbeiter/Create
@@ -77,12 +101,20 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Mitarbeiter_ID,username,Vorname,Nachname,Email,Telefon,Password,Berechtigungsstufe_ID")] mitarbeiter mitarbeiter)
         {
-            if (ModelState.IsValid)
+            try
             {
-                mitarbeiter.Password = Passwort_Hash.ComputeHash(mitarbeiter.Password, new MD5CryptoServiceProvider());
-                db.mitarbeiter.Add(mitarbeiter);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    mitarbeiter.Password = Passwort_Hash.ComputeHash(mitarbeiter.Password, new MD5CryptoServiceProvider());
+                    db.mitarbeiter.Add(mitarbeiter);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
             }
 
             ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
@@ -92,25 +124,33 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Mitarbeiter/Edit/5
         public ActionResult Edit(int? id)
         {
-            Session.Timeout = 15;
+            try
+            {
+                Session.Timeout = 15;
 
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
-            {
-                return Redirect("/Login");
-            }
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+                if (mitarbeiter == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
+                return View(mitarbeiter);
+
             }
-            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
-            if (mitarbeiter == null)
+            catch (Exception)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
-            return View(mitarbeiter);
         }
 
         // POST: Mitarbeiter/Edit/5
@@ -120,38 +160,54 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Mitarbeiter_ID,username,Vorname,Nachname,Email,Telefon,Password,Berechtigungsstufe_ID")] mitarbeiter mitarbeiter)
         {
-            if (ModelState.IsValid)
+            try
             {
-                mitarbeiter.Password = Passwort_Hash.ComputeHash(mitarbeiter.Password, new MD5CryptoServiceProvider());
-                db.Entry(mitarbeiter).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    mitarbeiter.Password = Passwort_Hash.ComputeHash(mitarbeiter.Password, new MD5CryptoServiceProvider());
+                    db.Entry(mitarbeiter).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
+                return View(mitarbeiter);
+
             }
-            ViewBag.Berechtigungsstufe_ID = new SelectList(db.berechtigungsstufe, "Berechtigungsstufe_ID", "Berechtigungsstufe1", mitarbeiter.Berechtigungsstufe_ID);
-            return View(mitarbeiter);
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         // GET: Mitarbeiter/Delete/5
         public ActionResult Delete(int? id)
         {
-            Session.Timeout = 15;
+            try
+            {
+                Session.Timeout = 15;
 
-            // Nur Admins
-            if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
-            {
-                return Redirect("/Login");
-            }
+                // Nur Admins
+                if (Session["Logged_in"] == null || Session["Stufe"].ToString() != "Admin")
+                {
+                    return Redirect("/Login");
+                }
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+                if (mitarbeiter == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(mitarbeiter);
+
             }
-            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
-            if (mitarbeiter == null)
+            catch (Exception)
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(mitarbeiter);
         }
 
         // POST: Mitarbeiter/Delete/5
@@ -159,10 +215,18 @@ namespace Ski_Service_Applikation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
-            db.mitarbeiter.Remove(mitarbeiter);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                mitarbeiter mitarbeiter = db.mitarbeiter.Find(id);
+                db.mitarbeiter.Remove(mitarbeiter);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         protected override void Dispose(bool disposing)
