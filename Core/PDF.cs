@@ -41,7 +41,7 @@ namespace Ski_Service_Applikation.Core
 
             gfx.DrawString("Danke für Ihre Bestellung", font2, XBrushes.DarkBlue, new XPoint(page.Width / 3.5, 240));
 
-            string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("d") + "_" + DateTime.Now.ToString("HH.mm") + ".pdf";
+            string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Jet-Stream_Rechnung_vom_" + DateTime.Now.ToString("d") + "_" + DateTime.Now.ToString("HH.mm") + ".pdf";
             pdf.Save(filename);
 
         }
