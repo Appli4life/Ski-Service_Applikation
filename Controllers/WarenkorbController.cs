@@ -119,12 +119,13 @@ namespace Ski_Service_Applikation.Controllers
 
                     XFont font = new XFont("Verdana", 20, XFontStyle.BoldItalic);
 
-                    gfx.DrawString("Hello, World!", font, XBrushes.Black,
+                    gfx.DrawString("Jet-Stream Service", font, XBrushes.Black,
                     new XRect(0, 0, page.Width, page.Height),
-                    XStringFormats.Center);
+                    XStringFormats.TopCenter);
 
                     string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("d") + ".pdf";
                     pdf.Save(filename);
+                    
 
                     HttpCookie Warenkorb = new HttpCookie("Warenkorb");
 
