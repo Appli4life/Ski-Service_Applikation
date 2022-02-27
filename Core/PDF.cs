@@ -39,7 +39,7 @@ namespace Ski_Service_Applikation.Core
             gfx.DrawString("Gesamtpreis : " + Gesamtpreis + " CHF (Menge: " + m.Menge + " * Preis pro Stück: " + preis_pro_stück + " CHF)", font4, XBrushes.Blue, new XPoint(10, 160));
 
             gfx.DrawString("Gemietet von: " + m.Miet_Datum.ToString("d") + " Bis: " + m.Rueckgabe_Datum.ToString("d"), font3, XBrushes.Blue, new XPoint(10, 180));
-            gfx.DrawString("Körpergrösse: " + m.Koerpergroesse + " Geschlecht: " + m.geschlecht.Geschlecht1, font3, XBrushes.Blue, new XPoint(10, 200));
+            gfx.DrawString("Körpergrösse: " + m.Koerpergroesse + " cm Geschlecht: " + m.geschlecht.Geschlecht1, font3, XBrushes.Blue, new XPoint(10, 200));
 
             gfx.DrawString("Danke für Ihre Bestellung", font2, XBrushes.DarkBlue, new XPoint(page.Width / 3.5, 240));
 

@@ -95,11 +95,11 @@ namespace Ski_Service_Applikation.Controllers
                 {
                     miete m = new miete()
                     {
-                        Altersgruppe_ID = Convert.ToInt32(Request.Form["Altersgruppe_ID"]),
+                        altersgruppe = db.altersgruppe.Find(Convert.ToInt32(Request.Form["Altersgruppe_ID"])),
                         angebot = a,
-                        Geschlecht_ID = Convert.ToInt32(Request.Form["Geschlecht_ID"]),
+                        geschlecht = db.geschlecht.Find(Convert.ToInt32(Request.Form["Geschlecht_ID"])),
                         Koerpergroesse = Convert.ToInt32(Request.Form["groesse"]),
-                        Kunde_ID = Convert.ToInt32(Session["User_id"]),
+                        kunde = db.kunde.Find(Convert.ToInt32(Session["User_id"])),
                         Miet_Datum = Convert.ToDateTime(Request.Form["von"]),
                         Rueckgabe_Datum = Convert.ToDateTime(Request.Form["bis"]),
                         Status_ID = db.status.FirstOrDefault().Status_ID,
