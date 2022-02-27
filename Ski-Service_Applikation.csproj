@@ -205,6 +205,7 @@
     <Compile Include="Controllers\MitarbeiterController.cs" />
     <Compile Include="Controllers\WarenkorbController.cs" />
     <Compile Include="Core\Passwort_Hash.cs" />
+    <Compile Include="Core\PDF.cs" />
     <Compile Include="detail_miete_view.cs">
       <DependentUpon>Skie_Service_Model.tt</DependentUpon>
     </Compile>

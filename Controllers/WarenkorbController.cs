@@ -1,5 +1,6 @@
 ﻿using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using Ski_Service_Applikation.Core;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace Ski_Service_Applikation.Controllers
 
             Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
             Response.Cookies.Set(Warenkorb);
- 
+
             return Redirect("/");
         }
 
@@ -90,7 +91,7 @@ namespace Ski_Service_Applikation.Controllers
             {
                 angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
 
-                if(a != null)
+                if (a != null)
                 {
                     miete m = new miete()
                     {
@@ -108,24 +109,13 @@ namespace Ski_Service_Applikation.Controllers
                     db.miete.Add(m);
                     db.SaveChanges();
 
-                    // PDF erstellen
-                    PdfDocument pdf = new PdfDocument();
-                    pdf.Info.Title = "Rechnung_" + DateTime.Now.ToString("f");
+                    if (Request.Form["pdf"] == "YES")
+                    {
+                        //PDF Generieren
+                        PDF.Generate_Bill(m);
+                    }
 
-                    // New Page
-                    PdfPage page = pdf.AddPage();
-
-                    XGraphics gfx = XGraphics.FromPdfPage(page);
-
-                    XFont font = new XFont("Verdana", 20, XFontStyle.BoldItalic);
-
-                    gfx.DrawImage(XImage.FromFile(Server.MapPath("~/Images/logo-small.png")),20,20,250,140);
-                    gfx.DrawString("Jet-Stream Service", font, XBrushes.Black, new XRect(0, 0, page.Width, page.Height), XStringFormats.TopCenter);
-
-                    string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("d")+"_"+ DateTime.Now.ToString("HH.mm")+ ".pdf";
-                    pdf.Save(filename);
-                    
-
+                    //Cookie löschen
                     HttpCookie Warenkorb = new HttpCookie("Warenkorb");
 
                     Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
