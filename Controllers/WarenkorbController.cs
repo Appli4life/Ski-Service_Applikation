@@ -1,8 +1,5 @@
-﻿using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using Ski_Service_Applikation.Core;
+﻿using Ski_Service_Applikation.Core;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -110,7 +107,6 @@ namespace Ski_Service_Applikation.Controllers
         {
             try
             {
-
                 Session.Timeout = 15;
 
                 HttpCookie cookie = Request.Cookies["Warenkorb"];
@@ -132,6 +128,10 @@ namespace Ski_Service_Applikation.Controllers
                             Status_ID = db.status.FirstOrDefault().Status_ID,
                             Menge = Convert.ToInt32(Request.Form["menge"])
                         };
+                        if (m.Miet_Datum >= m.Rueckgabe_Datum)
+                        {
+                            throw new Exception("Rückgabedatum darf nicht grösser oder gleich wie Mietdatum sein");
+                        }
 
                         db.miete.Add(m);
                         db.SaveChanges();

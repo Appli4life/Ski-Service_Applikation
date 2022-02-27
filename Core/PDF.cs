@@ -1,9 +1,6 @@
 ﻿using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Ski_Service_Applikation.Core
 {

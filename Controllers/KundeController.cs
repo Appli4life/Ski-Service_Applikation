@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Ski_Service_Applikation.Core;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using Org.BouncyCastle.Crypto.Generators;
-using Ski_Service_Applikation;
-using Ski_Service_Applikation.Core;
 
 namespace Ski_Service_Applikation.Controllers
 {

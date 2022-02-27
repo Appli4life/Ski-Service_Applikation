@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Ski_Service_Applikation.Core;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Ski_Service_Applikation.Core;
 
 namespace Ski_Service_Applikation.Controllers
 {
