@@ -7,6 +7,16 @@
 
 <h2>Warenkorb</h2>
 
+@{ 
+    if (Model == null)
+    {
+        <h3>Warenkorb ist leer</h3>        
+    }
+    else
+    {
+
+
+
 <form method="post" action="/Warenkorb/Confirmation">
     @Html.AntiForgeryToken()
 
@@ -96,7 +106,9 @@
     </div>
 
 </form>
+        }
+    }
 <p>
-    @Html.ActionLink("Delete", "Delete")
+    @Html.ActionLink("Delete", "Delete", "Warenkorb")
     @Html.ActionLink("Back to List", "Index", "Angebot")
 </p>

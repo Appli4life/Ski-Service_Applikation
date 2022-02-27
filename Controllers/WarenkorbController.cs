@@ -39,14 +39,17 @@ namespace Ski_Service_Applikation.Controllers
                     return View(a);
                 }
             }
-            return View();
+            return Redirect("/Angebot");
         }
 
         public ActionResult Delete()
         {
-            Response.Cookies.Remove("Warenkorb");
-            
-            return RedirectToAction("Detail");
+            HttpCookie Warenkorb = new HttpCookie("Warenkorb");
+
+            Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
+            Response.Cookies.Set(Warenkorb);
+ 
+            return Redirect("/");
         }
 
 
@@ -120,10 +123,13 @@ namespace Ski_Service_Applikation.Controllers
                     new XRect(0, 0, page.Width, page.Height),
                     XStringFormats.Center);
 
-                    string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("f") + ".pdf";
+                    string filename = "C:\\Users\\" + Environment.UserName + "\\Downloads\\Rechnung_von_" + DateTime.Now.ToString("d") + ".pdf";
                     pdf.Save(filename);
 
-                    Response.Cookies.Remove("Warenkorb");
+                    HttpCookie Warenkorb = new HttpCookie("Warenkorb");
+
+                    Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
+                    Response.Cookies.Set(Warenkorb);
 
                     return View(m);
                 }
