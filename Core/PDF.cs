@@ -9,7 +9,7 @@ namespace Ski_Service_Applikation.Core
 {
     public static class PDF
     {
-        public static void Generate_Bill(miete miete)
+        public static void Generate_Bill(miete m)
         {
             // PDF erstellen
             PdfDocument pdf = new PdfDocument();
@@ -25,19 +25,21 @@ namespace Ski_Service_Applikation.Core
             XFont font3 = new XFont("Verdana", 12, XFontStyle.Regular);
             XFont font4 = new XFont("Verdana", 12, XFontStyle.Underline);
 
-            string l = miete.Rueckgabe_Datum.Subtract(miete.Miet_Datum).ToString("dd");
+            string tage = m.Rueckgabe_Datum.Subtract(m.Miet_Datum).ToString("dd");
+            double preis_pro_stück = Convert.ToInt32(tage) * m.angebot.Preis_pro_Tag * m.altersgruppe.Preismultiplikator;
+            double Gesamtpreis = m.Menge * preis_pro_stück;
 
             gfx.DrawString("Jet-Stream Service", font, XBrushes.Black, new XPoint(page.Width / 3, 30));
             gfx.DrawString("Rechung vom: " + DateTime.Now.ToString("d") + " " + DateTime.Now.ToString("HH:mm"), font2, XBrushes.DarkBlue, new XPoint(page.Width / 3.5, 60));
 
             gfx.DrawString("Bestellung: ", font2, XBrushes.DarkBlue, new XPoint(10 / 2, 90));
-            gfx.DrawString("Marke: " + miete.angebot.marke.Marke1 + " Kategorie: " + miete.angebot.kategorie.Kategorie1, font3, XBrushes.Blue, new XPoint(10, 120));
+            gfx.DrawString("Marke: " + m.angebot.marke.Marke1 + " Kategorie: " + m.angebot.kategorie.Kategorie1, font3, XBrushes.Blue, new XPoint(10, 120));
 
-            gfx.DrawString("Preis pro Stück: " + Convert.ToInt32(l) * miete.angebot.Preis_pro_Tag * miete.altersgruppe.Preismultiplikator + " CHF (" + miete.angebot.Preis_pro_Tag * miete.altersgruppe.Preismultiplikator + " CHF (Preis pro Tag für " + miete.altersgruppe.Altersgruppe1 + ") * " + l + " Tage)", font3, XBrushes.Blue, new XPoint(10, 140));
-            gfx.DrawString("Gesamtpreis : " + miete.Menge * miete.angebot.Preis_pro_Tag * miete.altersgruppe.Preismultiplikator * Convert.ToInt32(l) + " CHF (Menge: " + miete.Menge + " * Preis pro Stück: " + miete.angebot.Preis_pro_Tag * miete.altersgruppe.Preismultiplikator * Convert.ToInt32(l) + " CHF)", font4, XBrushes.Blue, new XPoint(10, 160));
+            gfx.DrawString("Preis pro Stück: " + preis_pro_stück + " CHF (" + m.angebot.Preis_pro_Tag * m.altersgruppe.Preismultiplikator + " CHF (Preis pro Tag für " + m.altersgruppe.Altersgruppe1 + ") * " + tage + " Tage)", font3, XBrushes.Blue, new XPoint(10, 140));
+            gfx.DrawString("Gesamtpreis : " + Gesamtpreis + " CHF (Menge: " + m.Menge + " * Preis pro Stück: " + preis_pro_stück + " CHF)", font4, XBrushes.Blue, new XPoint(10, 160));
 
-            gfx.DrawString("Gemietet von: " + miete.Miet_Datum.ToString("d") + " Bis: " + miete.Rueckgabe_Datum.ToString("d"), font3, XBrushes.Blue, new XPoint(10, 180));
-            gfx.DrawString("Körpergrösse: " + miete.Koerpergroesse + " Geschlecht: " + miete.geschlecht.Geschlecht1, font3, XBrushes.Blue, new XPoint(10, 200));
+            gfx.DrawString("Gemietet von: " + m.Miet_Datum.ToString("d") + " Bis: " + m.Rueckgabe_Datum.ToString("d"), font3, XBrushes.Blue, new XPoint(10, 180));
+            gfx.DrawString("Körpergrösse: " + m.Koerpergroesse + " cm Geschlecht: " + m.geschlecht.Geschlecht1, font3, XBrushes.Blue, new XPoint(10, 200));
 
             gfx.DrawString("Danke für Ihre Bestellung", font2, XBrushes.DarkBlue, new XPoint(page.Width / 3.5, 240));
 

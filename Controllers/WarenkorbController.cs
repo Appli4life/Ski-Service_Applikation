@@ -22,113 +22,145 @@ namespace Ski_Service_Applikation.Controllers
         // GET: Warenkorb/Details
         public ActionResult Detail()
         {
-            Session.Timeout = 15;
-
-            if (Session["Logged_in"] == null)
+            try
             {
-                return Redirect("/Login");
-            }
+                Session.Timeout = 15;
 
-            if (Request.Cookies["Warenkorb"] != null)
-            {
-                HttpCookie cookie = Request.Cookies["Warenkorb"];
-                if (cookie["id"] != "")
+                if (Session["Logged_in"] == null)
                 {
-                    angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
-                    ViewBag.Altersgruppe_ID = new SelectList(db.altersgruppe, "Altersgruppe_ID", "Altersgruppe1");
-                    ViewBag.Geschlecht_ID = new SelectList(db.geschlecht, "Geschlecht_ID", "Geschlecht1");
-                    return View(a);
+                    return Redirect("/Login");
                 }
+
+                if (Request.Cookies["Warenkorb"] != null)
+                {
+                    HttpCookie cookie = Request.Cookies["Warenkorb"];
+                    if (cookie["id"] != "")
+                    {
+                        angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
+                        ViewBag.Altersgruppe_ID = new SelectList(db.altersgruppe, "Altersgruppe_ID", "Altersgruppe1");
+                        ViewBag.Geschlecht_ID = new SelectList(db.geschlecht, "Geschlecht_ID", "Geschlecht1");
+                        return View(a);
+                    }
+                }
+                return Redirect("/Angebot");
+
             }
-            return Redirect("/Angebot");
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
         public ActionResult Delete()
         {
-            HttpCookie Warenkorb = new HttpCookie("Warenkorb");
+            try
+            {
+                HttpCookie Warenkorb = new HttpCookie("Warenkorb");
 
-            Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
-            Response.Cookies.Set(Warenkorb);
+                Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
+                Response.Cookies.Set(Warenkorb);
 
-            return Redirect("/");
+                return Redirect("/");
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
 
 
         // Angebot Hinuzufügen
         public ActionResult Add(int? id)
         {
-            Session.Timeout = 15;
-
-            if (Session["Logged_in"] == null)
+            try
             {
-                return Redirect("/Login");
-            }
+                Session.Timeout = 15;
 
-            if (ModelState.IsValid)
+                if (Session["Logged_in"] == null)
+                {
+                    return Redirect("/Login");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    angebot angebot = db.angebot.Find(id);
+
+                    if (angebot == null)
+                        return HttpNotFound();
+
+                    HttpCookie Warenkorb = new HttpCookie("Warenkorb");
+                    Warenkorb["id"] = angebot.Angebot_ID.ToString();
+                    Warenkorb.Expires.Add(new TimeSpan(48, 0, 0));
+                    Response.Cookies.Add(Warenkorb);
+                }
+
+                return RedirectToAction("Detail");
+
+            }
+            catch (Exception)
             {
-                angebot angebot = db.angebot.Find(id);
-
-                if (angebot == null)
-                    return HttpNotFound();
-
-                HttpCookie Warenkorb = new HttpCookie("Warenkorb");
-                Warenkorb["id"] = angebot.Angebot_ID.ToString();
-                Warenkorb.Expires.Add(new TimeSpan(48, 0, 0));
-                Response.Cookies.Add(Warenkorb);
+                return View("Error");
             }
-
-            return RedirectToAction("Detail");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Confirmation()
         {
-            Session.Timeout = 15;
-
-            HttpCookie cookie = Request.Cookies["Warenkorb"];
-            if (cookie["id"] != "")
+            try
             {
-                angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
 
-                if (a != null)
+                Session.Timeout = 15;
+
+                HttpCookie cookie = Request.Cookies["Warenkorb"];
+                if (cookie["id"] != "")
                 {
-                    miete m = new miete()
-                    {
-                        Altersgruppe_ID = Convert.ToInt32(Request.Form["Altersgruppe_ID"]),
-                        angebot = a,
-                        Geschlecht_ID = Convert.ToInt32(Request.Form["Geschlecht_ID"]),
-                        Koerpergroesse = Convert.ToInt32(Request.Form["groesse"]),
-                        Kunde_ID = Convert.ToInt32(Session["User_id"]),
-                        Miet_Datum = Convert.ToDateTime(Request.Form["von"]),
-                        Rueckgabe_Datum = Convert.ToDateTime(Request.Form["bis"]),
-                        Status_ID = db.status.FirstOrDefault().Status_ID,
-                        Menge = Convert.ToInt32(Request.Form["menge"])
-                    };
+                    angebot a = db.angebot.Find(Convert.ToInt32(cookie["id"]));
 
-                    db.miete.Add(m);
-                    db.SaveChanges();
-
-                    if (Request.Form["pdf"] == "YES")
+                    if (a != null)
                     {
-                        //PDF Generieren
-                        PDF.Generate_Bill(m);
+                        miete m = new miete()
+                        {
+                            altersgruppe = db.altersgruppe.Find(Convert.ToInt32(Request.Form["Altersgruppe_ID"])),
+                            angebot = a,
+                            geschlecht = db.geschlecht.Find(Convert.ToInt32(Request.Form["Geschlecht_ID"])),
+                            Koerpergroesse = Convert.ToInt32(Request.Form["groesse"]),
+                            kunde = db.kunde.Find(Convert.ToInt32(Session["User_id"])),
+                            Miet_Datum = Convert.ToDateTime(Request.Form["von"]),
+                            Rueckgabe_Datum = Convert.ToDateTime(Request.Form["bis"]),
+                            Status_ID = db.status.FirstOrDefault().Status_ID,
+                            Menge = Convert.ToInt32(Request.Form["menge"])
+                        };
+
+                        db.miete.Add(m);
+                        db.SaveChanges();
+
+                        if (Request.Form["pdf"] == "YES")
+                        {
+                            //PDF Generieren
+                            PDF.Generate_Bill(m);
+                        }
+
+                        //Cookie löschen
+                        HttpCookie Warenkorb = new HttpCookie("Warenkorb");
+
+                        Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
+                        Response.Cookies.Set(Warenkorb);
+
+                        return View(m);
                     }
-
-                    //Cookie löschen
-                    HttpCookie Warenkorb = new HttpCookie("Warenkorb");
-
-                    Warenkorb.Expires.Add(new TimeSpan(0, 0, 1));
-                    Response.Cookies.Set(Warenkorb);
-
-                    return View(m);
+                    else
+                    {
+                        return HttpNotFound();
+                    }
                 }
-                else
-                {
-                    return HttpNotFound();
-                }
+                return HttpNotFound();
             }
-            return HttpNotFound();
+            catch (Exception)
+            {
+                return View("Error");
+            }
         }
     }
 }
