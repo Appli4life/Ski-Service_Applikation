@@ -261,6 +261,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\add.png" />
+    <Content Include="Images\back.png" />
     <Content Include="Images\Category\All-Mountain-Carvin.jpg" />
     <Content Include="Images\Category\Allround-Skis.jpg" />
     <Content Include="Images\Category\Freeride-Skis.jpg" />

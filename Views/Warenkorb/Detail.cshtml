@@ -5,119 +5,114 @@
     Layout = "~/Views/Shared/_Layout_k_in.cshtml";
 }
 
-<h2>Warenkorb</h2>
+<div class="container bg-dark text-white my-5 p-2">
 
-@{ 
-    if (Model == null)
-    {
-        <h3>Warenkorb ist leer</h3>        
-    }
-    else
-    {
+    <p>
+        @Html.ActionLink("Back to List", "Index", "Angebot", null, new { @class = "back" })
+    </p>
 
+    <h2>Warenkorb</h2>
 
+    @{
+        if (Model == null)
+        {
+            <h3>Warenkorb ist leer</h3>
+        }
+        else
+        {
 
-<form method="post" action="/Warenkorb/Confirmation">
-    @Html.AntiForgeryToken()
-
-    <div>
-        <h4>Angebot</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                Preis Pro Tag
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Preis_pro_Tag)
-            </dd>
-
-            <dt>
-                Kategorie
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.kategorie.Kategorie1)
-            </dd>
-
-            <dt>
-                Marke
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.marke.Marke1)
-            </dd>
-
-        </dl>
-    </div>
-
-    <div class="form-group">
-        Altersgruppe
-        <div class="col-md-10">
-            @Html.DropDownList("Altersgruppe_ID", null, htmlAttributes: new { @class = "form-input" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        Altersgruppe
-        <div class="col-md-10">
-            @Html.DropDownList("Geschlecht_ID", null, htmlAttributes: new { @class = "form-input" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            <label for="groesse">Körpergrösse</label>
-            <br />
-            <input type="number" value="170" min="50" max="250" name="groesse" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            <label for="menge">Menge</label>
-            <br />
-            <input type="number" value="1" min="1" max="5" name="menge" />
-        </div>
-    </div>
-
-    <div class="form-horizontal">
-        <div class="form-group row">
-            <div class="col-md-10">
-                <label for="von">Miet Datum</label>
-                <br />
-                <input type="date" value='@DateTime.Now.AddDays(1).ToString("yyy-MM-dd")' min='@DateTime.Now.AddDays(1).ToString("yyy-MM-dd")' max='@DateTime.Now.AddYears(1).ToString("yyy-MM-dd")' id="von" name="Von" />
+            <div class="row">
+                <div class="col">
+                    <h4>Angebot</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Preis Pro Tag
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Preis_pro_Tag)
+                        </dd>
+                        <dt>
+                            Kategorie
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.kategorie.Kategorie1)
+                        </dd>
+                        <dt>
+                            Marke
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.marke.Marke1)
+                        </dd>
+                    </dl>
+                </div>
             </div>
-        </div>
+            <h2>Mietformular</h2>
+            <p>Bittefüllen Sie das folgende Formular aus:</p>
+                <form method="post" action="/Warenkorb/Confirmation" >
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group row">
-            <div class="col-md-10">
-                <label for="bis">Rückgabe Datum</label>
-                <br />
-                <input type="date" value='@DateTime.Now.AddDays(2).ToString("yyy-MM-dd")' min='@DateTime.Now.AddDays(2).ToString("yyy-MM-dd")' max='@DateTime.Now.AddYears(2).ToString("yyy-MM-dd")' id="bis" name="Bis" />
-            </div>
-        </div>
+                    <div class="form-group row py-2">
+                            <label for="Altersgruppe" class="form-label col-md-2">Altersgruppe</label>
+                            <div class="col-auto">
+                                @Html.DropDownList("Altersgruppe_ID", null, htmlAttributes: new { @class = "form-control", @id = "Altersgruppe" })
+                            </div>
+                    </div>
 
-        <div class="form-group">
-            <label for="pdf">Rechnung als PDF generieren (Speicherort: Downloads)</label>
-            <input type="radio" name="pdf" value="YES" checked/>
-            <br>
-            <br />
-        </div>
-        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-success">Übernehmen</button>
-            </div>
-        </div>
+                    <div class="form-group row py-2">
+                            <label for="Geschlecht" class="form-label col-md-2">Geschlecht</label>
+                            <div class="col-auto">
+                                @Html.DropDownList("Geschlecht_ID", null, htmlAttributes: new { @class = "form-control ", @id = "Geschlecht" })
+                            </div>
+                    </div>
 
+                    <div class="form-group row py-2">
+                            <label class="form-label col-md-2" for="groesse">Körpergrösse in Centimeter</label>
+                            <div class="col-auto">
+                                <input class="form-control" type="number" value="170" min="50" max="250" name="groesse"/>
+                            </div>
+                    </div>
 
-    </div>
+                    <div class="form-group row py-2">
+                            <label class="col-md-2 form-label" for="menge">Menge</label>
+                            <div class="col-auto">
+                                <input class="form-control" type="number" value="1" min="1" max="5" name="menge" />
+                            </div>
+                    </div>
 
-</form>
+                    <div class="form-group row py-2">
+                            <label class="form-label col-md-2" for="von">Miet Datum</label>
+                            <div class="col-auto">
+                                <input type="date" class="form-control" value='@DateTime.Now.AddDays(1).ToString("yyy-MM-dd")' min='@DateTime.Now.AddDays(1).ToString("yyy-MM-dd")' max='@DateTime.Now.AddYears(1).ToString("yyy-MM-dd")' id="von" name="Von" />
+                            </div>
+                    </div>
+
+                    <div class="form-group row py-2">
+                            <label class="form-label col-md-2" for="bis">Rückgabe Datum</label>
+                            <div class="col-auto">
+                                <input class="form-control" type="date" value='@DateTime.Now.AddDays(2).ToString("yyy-MM-dd")' min='@DateTime.Now.AddDays(2).ToString("yyy-MM-dd")' max='@DateTime.Now.AddYears(2).ToString("yyy-MM-dd")' id="bis" name="Bis" />
+                            </div>
+                    </div>
+
+                    <div class="form-group row py-2">
+
+                        <div class="">
+                                <label class="form-check-label col-md-2" for="pdf">Rechnung als PDF generieren (Speicherort: Downloads)</label>
+                                <input class="form-check-input" id="pdf" type="checkbox" name="pdf" value="YES" checked />
+                        </div>
+                    </div>
+
+                        <div class="form-group row py-2">
+                            <div class="">
+                                <button type="submit" class="btn btn-success">Bestellen</button>
+                                @Html.ActionLink("Delete", "Delete", "Warenkorb", new { @class = "delete" })
+                            </div>
+                        </div>
+                </form>
         }
     }
-<p>
-    @Html.ActionLink("Delete", "Delete", "Warenkorb")
-    @Html.ActionLink("Back to List", "Index", "Angebot")
-</p>
+    <p>
+        
+    </p>
+
+</div>
